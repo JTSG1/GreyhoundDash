@@ -1,0 +1,8 @@
+<div class="enhanced-output">
+    {% if state.up %}
+        <div>RUNNING: {{ state.running }}</div>
+        <div>EXITED: {{ state.exited }}</div>
+    {% else %}
+        <span class="alert-down">SERVICE DOWN</span>
+    {% endif %}
+</div>

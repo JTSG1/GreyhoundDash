@@ -1,0 +1,13 @@
+asgiref==3.8.1
+certifi==2025.6.15
+charset-normalizer==3.4.2
+Django==5.2.3
+idna==3.10
+iniconfig==2.1.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.1
+pytest==8.4.0
+requests==2.32.4
+sqlparse==0.5.3
+urllib3==2.4.0

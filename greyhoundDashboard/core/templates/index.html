@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="service-container">
+    {% for service in services %}
+        <div id="service-{{ service.id }}-container"
+            hx-get="{% url 'service_pill' service.id %}"
+            hx-trigger="load"
+            hx-target="#service-{{ service.id }}"
+            hx-headers='{"x-include-assets": "false"}'
+            hx-swap="innerHTML">
+            <div id="service-{{ service.id }}">
+
+            </div>
+        </div>
+    {% empty %}
+        <div>No services available.</div>
+    {% endfor %}
+</div>
+{% endblock %}

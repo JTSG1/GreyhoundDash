@@ -1,0 +1,53 @@
+{
+    "subsonic-response": {
+        "status": "ok",
+        "version": "1.16.1",
+        "type": "navidrome",
+        "serverVersion": "0.54.4 (73ccfbd8)",
+        "openSubsonic": true,
+        "nowPlaying": {
+            "entry": [
+                {
+                    "id": "fe491c994385456a64f448e8f9c86ee8",
+                    "parent": "961b733c79c9d44e15cc022c1327f1b5",
+                    "isDir": false,
+                    "title": "Burning Anvil of Steel",
+                    "album": "Deceiver of the Gods",
+                    "artist": "Amon Amarth",
+                    "track": 1,
+                    "year": 2013,
+                    "coverArt": "al-961b733c79c9d44e15cc022c1327f1b5_0",
+                    "size": 3778660,
+                    "contentType": "audio/ogg",
+                    "suffix": "ogg",
+                    "duration": 267,
+                    "bitRate": 113,
+                    "path": "Amon Amarth/Deceiver of the Gods/01 - Burning Anvil of Steel.ogg",
+                    "playCount": 4,
+                    "created": "2025-03-06T11:01:18.0204274Z",
+                    "albumId": "961b733c79c9d44e15cc022c1327f1b5",
+                    "artistId": "9f913ea695ab1e8aff31890b96be75f3",
+                    "type": "music",
+                    "isVideo": false,
+                    "played": "2025-06-09T14:06:03.249Z",
+                    "bpm": 0,
+                    "comment": "",
+                    "sortName": "",
+                    "mediaType": "song",
+                    "musicBrainzId": "",
+                    "genres": [],
+                    "replayGain": {
+                        "trackPeak": 1,
+                        "albumPeak": 1
+                    },
+                    "channelCount": 2,
+                    "samplingRate": 44100,
+                    "username": "james",
+                    "minutesAgo": 1,
+                    "playerId": 1,
+                    "playerName": "NavidromeUI"
+                }
+            ]
+        }
+    }
+}
