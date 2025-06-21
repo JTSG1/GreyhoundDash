@@ -2,6 +2,8 @@
 
 Greyhound Dashboard is a Django-based web application for managing and monitoring self-hosted services. It provides a unified dashboard to view the status and enhanced data of various services such as Navidrome, Vikunja, Portainer, and more.
 
+![Dashboard Screenshot](images/dashboard.png)
+
 ## Features
 
 - **Service Registry:** Register and manage multiple service types.
