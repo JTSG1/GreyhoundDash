@@ -1,4 +1,4 @@
-from core.services.service_base import ServiceBase, EnhancedServiceBase
+from services.service_base import ServiceBase, EnhancedServiceBase
 
 class ServiceProxmox(ServiceBase):
 
@@ -34,3 +34,8 @@ class ServiceOpenWebUI(ServiceBase):
         super().get()
 
         return self
+    
+__all__ = [
+    'ServiceProxmox',
+    'ServiceOpenWebUI'
+]

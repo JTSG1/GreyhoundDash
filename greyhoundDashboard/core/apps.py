@@ -9,7 +9,7 @@ class CoreConfig(AppConfig):
 
     def ready(self):
 
-        module = importlib.import_module("core.services")
+        module = importlib.import_module("services")
 
         for name, obj in inspect.getmembers(module, inspect.isclass):
             

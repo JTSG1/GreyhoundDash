@@ -1,5 +1,9 @@
 from abc import abstractmethod
+from importlib.resources import files
 from django.shortcuts import render
+from django.template import Context, Template
+from pathlib import Path
+from django.utils.safestring import mark_safe
 
 import requests
 
@@ -13,7 +17,7 @@ class ServiceBase:
     is_enhanced: bool = False
     enhanced_auth_fields: list[str] = []
 
-    def __init__(self, registered_service: "RegisteredService"):
+    def __init__(self, registered_service):
         self.url = None
         self.state = {}
 
@@ -38,8 +42,23 @@ class ServiceBase:
         return False
 
     def render(self) -> str:
-        return render(None, f"components/enhanced-services/{self.id}.html", {"state": self.state}).text
 
+        # template_path = Path(__file__).parent / "templates" / "components" / "enhanced-services" / f"{self.id}.html"
+
+        template_path = files(".".join(self.__module__.split('.')[0:2])).joinpath(
+            f"{self.id}.html"
+        )
+
+        if not template_path.exists():
+            raise FileNotFoundError(f"Template not found: {template_path}")
+
+        with open(template_path, encoding="utf-8") as fh:
+            template_string = fh.read()
+
+        template = Template(template_string)
+
+        return mark_safe(template.render(Context({"state": self.state})))
+    
     @classmethod
     def register(cls) -> None:
 
