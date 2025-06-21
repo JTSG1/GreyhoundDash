@@ -41,11 +41,13 @@ def component_service_pill(request, registered_service: RegisteredService):
 def component_enhanced_service_data(request, registered_service: RegisteredService):
 
     service = ServiceDefinitions.get_definition(registered_service.service_type)
-    if not service:
-        return render(request, '404.html', {'error': 'Service not found'}, status=404)
+    if service is not None and not service.is_enhanced:
+        return render(request, 'components/basic-service.html', {'error': 'Service not found'}, status=200)
+    if service is None:
+        return render(request, '404.html', {'error': 'Service definition not registered'}, status=200)
     # If the service has an enhanced version, instantiate it
     result = None
-    if service.enhanced:
+    if service.is_enhanced:
         result = service.enhanced(registered_service).get().render()
 
     if result is None:
