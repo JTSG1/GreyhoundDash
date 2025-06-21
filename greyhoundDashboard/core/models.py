@@ -5,7 +5,6 @@ class RegisteredService(models.Model):
 
     name = models.CharField(max_length=100)
     service_type = models.CharField(max_length=50, choices=ServiceDefinitions.choices)
-    description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     auth_fields = models.JSONField(default=dict, blank=True, null=True)

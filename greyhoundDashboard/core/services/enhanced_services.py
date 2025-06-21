@@ -1,6 +1,5 @@
+from core.services.service_base import ServiceBase, EnhancedServiceBase
 
-from abc import abstractmethod
-from django.shortcuts import render
 import requests
 import json
 import logging
@@ -11,71 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from core.models import RegisteredService
 
-class ServiceBase:
 
-    id: str = None
-    name: str = None
-    description: str = ""
-    tags: list[str] = []
-    up_check: bool = False
-
-    def __init__(self, registered_service: "RegisteredService"):
-        self.url = None
-        self.state = {}
-
-    def get(self) -> "ServiceBase":
-        """
-        get the service integration.
-        """
-        self.state['up'] = self.up_check()
-
-        return self
-
-    def up_check(self):
-
-        try:
-            request = requests.get(self.url, timeout=3)
-
-            if request.status_code == 200:
-                return True
-        except:
-            return False
-        
-        return False
-
-    def render(self) -> str:
-        return render(None, f"components/enhanced-services/{self.id}.html", {"state": self.state}).text
-
-    @classmethod
-    def register(cls):
-
-        from core.services.service_registry import ServiceDefinitions, ServiceDefinition
-
-        ServiceDefinitions.register(cls.id, ServiceDefinition(
-            name=cls.name,
-            description=cls.description,
-            tags=cls.tags,
-            enhanced=None,
-            enhanced_auth_fields=[]
-        ))
-
-class EnhancedServiceBase(ServiceBase):
-
-    is_enhanced: bool = True
-    enhanced_auth_fields: list[str] = []
-
-    @classmethod
-    def register(cls):
-
-        from core.services.service_registry import ServiceDefinitions, ServiceDefinition
-
-        ServiceDefinitions.register(cls.id, ServiceDefinition(
-            name=cls.name,
-            description=cls.description,
-            tags=cls.tags,
-            enhanced=cls,
-            enhanced_auth_fields=cls.enhanced_auth_fields
-        ))
 
 class ServicePortainer(EnhancedServiceBase):
 
@@ -153,12 +88,18 @@ class ServicePortainer(EnhancedServiceBase):
         return self
 
 
-class ServiceNavidrome(ServiceBase):
+class ServiceNavidrome(EnhancedServiceBase):
 
     """
     🎸 < Music!
     """
-    id = "navidrome"
+    id:str = 'navidrome'
+    name:str = 'Navidrome'
+    description:str = 'A self hosted music server with Subsonic API.',
+    tags: list[str] = ['music', 'entertainment'],
+    enhanced_auth_fields: list[str] = ['username', 'password']
+    is_enhanced: bool = True
+
 
     def __init__(self, registered_service: "RegisteredService"):
 
@@ -219,12 +160,17 @@ class ServiceNavidrome(ServiceBase):
         return self
 
 
-class ServiceVikunja(ServiceBase):
+class ServiceVikunja(EnhancedServiceBase):
 
     """
     📤 < Work!
     """    
     id = "vikunja"
+    name:str = 'Vikunja'
+    description:str = 'An open-source, self-hosted task management application that helps you plan, organize, and manage your personal or team projects efficiently.',
+    tags: list[str] = ['productivity', 'task management', 'kanban', 'self-hosted', 'todo'],
+    enhanced_auth_fields: list[str] = ['username', 'password']
+    is_enhanced: bool = True
 
     def __init__(self, registered_service: "RegisteredService"):
         """

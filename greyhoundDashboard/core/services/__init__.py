@@ -1,1 +1,2 @@
-from .services import ServiceBase, ServicePortainer, ServiceNavidrome, ServiceVikunja
+from .enhanced_services import *
+from .basic_services import *
