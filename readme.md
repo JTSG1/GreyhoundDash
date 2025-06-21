@@ -52,7 +52,7 @@ readme.md
 
 1. **Clone the repository:**
     ```sh
-    git clone <your-repo-url>
+    git clone git@github.com:JTSG1/GreyhoundDash.git
     cd greyhoundDashboard
     ```
 
