@@ -9,7 +9,7 @@ class TestServiceDefinitions(unittest.TestCase):
         self.assertIsInstance(definition, ServiceDefinition)
         self.assertEqual(definition.name, 'Portainer')
         self.assertEqual(definition.enhanced_auth_fields, ['username', 'password'])
-        self.assertIsNotNone(definition.enhanced)
+        self.assertIsNotNone(definition.service_class)
 
     def test_get_nonexistent_definition(self):
         definition = ServiceDefinitions.get_definition('nonexistent')
@@ -26,7 +26,7 @@ class TestServiceDefinitions(unittest.TestCase):
     @patch('core.services.enhanced_services.EnhancedPortainer')
     def test_portainer_enhanced_class_mocked(self, mock_enhanced):
         definition = ServiceDefinitions.get_definition('portainer')
-        self.assertIsNotNone(definition.enhanced)
+        self.assertIsNotNone(definition.service_class)
         self.assertEqual(definition.enhanced_auth_fields, ['username', 'password'])
 
 if __name__ == '__main__':

@@ -34,14 +34,13 @@ class ServiceBase:
         try:
             request = requests.get(self.registered_service.url, timeout=3)
 
-            if request.status_code == 200:
+            if request.status_code in [200, 401, 403]:
                 return True
             else:
                 return False
         except Exception as e:
             return False
         
-        return False
 
     def render(self) -> str:
 
@@ -71,7 +70,7 @@ class ServiceBase:
             description=cls.description,
             tags=cls.tags,
             is_enhanced=cls.is_enhanced,
-            enhanced=cls,
+            service_class=cls,
             enhanced_auth_fields=[]
         ))
 
@@ -94,6 +93,6 @@ class EnhancedServiceBase(ServiceBase):
             description=cls.description,
             tags=cls.tags,
             is_enhanced=cls.is_enhanced,
-            enhanced=cls,
+            service_class=cls,
             enhanced_auth_fields=[]
         ))
