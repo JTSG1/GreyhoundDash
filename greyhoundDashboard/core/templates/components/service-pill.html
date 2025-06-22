@@ -3,10 +3,11 @@
 <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endif %}
-<div class="service service-badge" style='background-image:url("{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}");'>
+<!-- <div class="service service-badge" style='background-image:url("{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}");'> -->
+<div class="service service-badge">
     <a href="{{ service.url }}" target="_blank"><div class="circle">GO</div></a>
     <div class="service-inner">
-        <!-- <img class='service-logo' src="{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}" alt="N/A" /> -->
+        <img class='service-logo' src="{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}" alt="N/A" />
         <div class="service-inner-text">
             <p>{{ service.name }}</p>
             <div id="service-enhanced-{{ service.id }}-container"

@@ -63,7 +63,7 @@
             color: #fff;
             font-weight: 600;
             font-size: 0.875rem;
-            background: radial-gradient(circle at top left, #4f46e5, #1e3a8a);
+            border: 1px solid rgb(80, 80, 80);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             background-size: 120px;
@@ -96,18 +96,22 @@
         .service-logo{
             display:inline-block;
             height:100px;
-            position: relative;
-            top:10px;
+            position: absolute;
+            top:-12.5px;
+            left:-25px;
+            border:1px solid black;
+            border-radius: 999px;
+            background: radial-gradient(circle at top left, #4f46e5, #1e3a8a);
         }
 
         .circle {
             z-index:10000;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             position: absolute;
-            top:0px;
-            right:0px;
+            top:7.5px;
+            right:10px;
             background: linear-gradient(to bottom right, #3b83f672, #1e40af78); /* gradient */
             color: white;
             font-weight: bold;
