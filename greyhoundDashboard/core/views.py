@@ -42,13 +42,14 @@ def component_enhanced_service_data(request, registered_service: RegisteredServi
 
     service = ServiceDefinitions.get_definition(registered_service.service_type)
     if service is not None and not service.is_enhanced:
-        return render(request, 'components/basic-service.html', {'error': 'Service not found'}, status=200)
+        basic_service = service.service_class(registered_service).get()
+        return render(request, 'components/basic-service.html', basic_service.state, status=200)
     if service is None:
         return render(request, '404.html', {'error': 'Service definition not registered'}, status=200)
     # If the service has an enhanced version, instantiate it
     result = None
     if service.is_enhanced:
-        result = service.enhanced(registered_service).get().render()
+        result = service.service_class(registered_service).get().render()
 
     if result is None:
         return HttpResponse("Service not available or not implemented.", status=503)

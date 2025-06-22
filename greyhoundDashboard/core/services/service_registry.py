@@ -9,7 +9,7 @@ class ServiceDefinition:
     description: str
     tags: list[str] = field(default_factory=list)
     is_enhanced: bool = False
-    enhanced: object | None = None
+    service_class: object | None = None
     enhanced_auth_fields: list[str] = field(default_factory=list)
 
 class ServiceDefinitions:
