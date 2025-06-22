@@ -75,6 +75,21 @@ class ServicePihole(ServiceBase):
         super().get()
         return self
 
+
+class ServiceOllama(ServiceBase):
+    """
+    🦙 Ollama
+    """
+    id: str = 'ollama'
+    name: str = 'Ollama'
+    description: str = 'Run large language models locally with ease. Ollama provides a simple interface and support for models like LLaMA, Mistral, and more.',
+    tags: list[str] = ['LLM', 'AI', 'local', 'self-hosted', 'open-source']
+
+    def get(self) -> ServiceBase:
+        super().get()
+        return self
+
+
 __all__ = [
     name for name, obj in globals().items()
     if name.startswith('Service') and isinstance(obj, type)

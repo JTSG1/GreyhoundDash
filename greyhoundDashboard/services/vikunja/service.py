@@ -27,6 +27,8 @@ class ServiceVikunja(EnhancedServiceBase):
         """
         Initialize the enhanced service with the base service.
         """
+        super().__init__(registered_service)
+        
         self.state = {}
         self.username = registered_service.auth_fields["username"]
         self.password = registered_service.auth_fields["password"]

@@ -18,8 +18,8 @@ class ServiceBase:
     enhanced_auth_fields: list[str] = []
 
     def __init__(self, registered_service):
-        self.url = None
         self.state = {}
+        self.registered_service = registered_service
 
     def get(self) -> "ServiceBase":
         """
@@ -32,11 +32,13 @@ class ServiceBase:
     def up_check(self):
 
         try:
-            request = requests.get(self.url, timeout=3)
+            request = requests.get(self.registered_service.url, timeout=3)
 
             if request.status_code == 200:
                 return True
-        except:
+            else:
+                return False
+        except Exception as e:
             return False
         
         return False
@@ -69,7 +71,7 @@ class ServiceBase:
             description=cls.description,
             tags=cls.tags,
             is_enhanced=cls.is_enhanced,
-            enhanced=None,
+            enhanced=cls,
             enhanced_auth_fields=[]
         ))
 
@@ -78,6 +80,9 @@ class EnhancedServiceBase(ServiceBase):
 
     is_enhanced: bool = True
     enhanced_auth_fields: list[str] = []
+
+    def __init__(self, registered_service):
+        super().__init__(registered_service)
 
     @classmethod
     def register(cls) -> None:
