@@ -25,6 +25,8 @@ class ServiceNavidrome(EnhancedServiceBase):
 
     def __init__(self, registered_service: "RegisteredService"):
 
+        super().__init__(registered_service)
+
         self.state = {}
         self.username = registered_service.auth_fields["username"]
         self.password = registered_service.auth_fields["password"]

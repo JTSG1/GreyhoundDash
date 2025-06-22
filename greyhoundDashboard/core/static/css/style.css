@@ -96,6 +96,7 @@
         .service-logo{
             display:inline-block;
             height:100px;
+            width:100px;
             position: absolute;
             top:-12.5px;
             left:-25px;
