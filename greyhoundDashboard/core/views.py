@@ -10,6 +10,19 @@ def index(request):
 
     return render(request, 'index.html', {'services': services})
 
+def settings(request):
+    """
+    Render the settings page.
+    """
+
+    services = RegisteredService.objects.all()
+        
+    context = {
+        'services': services,
+    }
+
+    return render(request, 'settings.html', context)
+
 def get_registered_service(func):
     """
     Decorator to retrieve the registered service from the database.
@@ -39,19 +52,21 @@ def component_service_pill(request, registered_service: RegisteredService):
 
 @get_registered_service
 def component_enhanced_service_data(request, registered_service: RegisteredService):
+    service_def = registered_service.definition
 
-    service = ServiceDefinitions.get_definition(registered_service.service_type)
-    if service is not None and not service.is_enhanced:
-        basic_service = service.service_class(registered_service).get()
-        return render(request, 'components/basic-service.html', basic_service.state, status=200)
-    if service is None:
-        return render(request, '404.html', {'error': 'Service definition not registered'}, status=200)
-    # If the service has an enhanced version, instantiate it
-    result = None
-    if service.is_enhanced:
-        result = service.service_class(registered_service).get().render()
+    if service_def is None:
+        return render(request, '404.html', {'error': 'Service definition not registered'}, status=404)
 
+    service_instance = registered_service.service_class.get()
+
+    if not service_def.is_enhanced:
+        return render(request, 'components/basic-service.html', service_instance.state, status=200)
+
+    result = service_instance.render()
     if result is None:
         return HttpResponse("Service not available or not implemented.", status=503)
-    else:
-        return render(request, 'components/enhanced-service-data.html', {'service': service, 'result': result})
+
+    return render(request, 'components/enhanced-service-data.html', {
+        'service': service_def,
+        'result': result,
+    })

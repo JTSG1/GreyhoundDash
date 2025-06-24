@@ -10,6 +10,23 @@ class RegisteredService(models.Model):
     auth_fields = models.JSONField(default=dict, blank=True, null=True)
     url = models.CharField(max_length=200, blank=True, null=True)
 
+    @property
+    def definition(self):
+        """
+        Returns the service definition for the registered service.
+        """
+        return ServiceDefinitions.get_definition(self.service_type)
+    
+    @property
+    def service_class(self):
+        """
+        Returns the service class for the registered service.
+        """
+        definition = self.definition
+        if definition:
+            return definition.service_class(self)
+        return None
+
     def __str__(self):
         return self.name
     
