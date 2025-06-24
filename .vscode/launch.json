@@ -10,8 +10,10 @@
             "type": "debugpy",
             "request": "launch",
             "args": [
-                "runserver"
+                "runserver",
+                "0.0.0.0:8000"
             ],
+            "envFile": "${workspaceFolder}/.env",
             "django": true,
             "autoStartBrowser": false,
             "program": "${workspaceFolder}/greyhoundDashboard/manage.py"

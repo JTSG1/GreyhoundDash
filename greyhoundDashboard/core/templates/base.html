@@ -14,8 +14,13 @@
 </head>
 <body>
     <h1 class="top-title">
-        <img src="{% static 'logo-dark.png' %}" style="height:50px;position:relative;top:15px;"/>
+        <a href="{% url 'index' %}" class="logo-link"><img src="{% static 'logo-dark.png' %}" style="height:50px;position:relative;top:15px;"/></a>
         Greyhound Dash
+        <div class="top-right">
+            <a href="{% url 'settings' %}" class="settings-link">
+                <img src="{% static 'images/app/settings.png' %}" style="height:100%;"/>
+            </a>
+        </div>
     </h1>
     <div class="particles" id="particles-js"></div>
     {% block content %}
