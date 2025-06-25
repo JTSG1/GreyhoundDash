@@ -17,8 +17,8 @@ class ServicePortainer(EnhancedServiceBase):
     """    
     id:str = 'portainer'
     name:str = 'Portainer'
-    description:str = 'A lightweight management UI which allows you to easily manage your Docker containers.',
-    tags: list[str] = ['docker', 'management'],
+    description:str = 'A lightweight management UI which allows you to easily manage your Docker containers.'
+    tags: list[str] = ['docker', 'management']
     enhanced_auth_fields: list[str] = ['username', 'password']
     is_enhanced: bool = True
 

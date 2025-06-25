@@ -1,27 +1,39 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import RegisteredService
-from .services.service_registry import ServiceDefinitions
+from core.models import RegisteredService
+from core.services.service_registry import ServiceDefinitions
+from core.forms.registered_service import NewRegisteredServiceForm
 
-# Create your views here.
-def index(request):
-
-    services = RegisteredService.objects.all()
-
-    return render(request, 'index.html', {'services': services})
-
-def settings(request):
+def component_service_description(request):
     """
-    Render the settings page.
+    Render the service description based on the selected service type.
     """
+    service_type = request.GET.get('service_type', None)
+    
+    if service_type:
+        description = ServiceDefinitions.get_description(service_type)
+        return render(request, 'components/service-description.html', {
+            'service_type': service_type,
+            'description': description,
+        })
+    
+    return HttpResponse("No service type provided.", status=400)
 
-    services = RegisteredService.objects.all()
-        
-    context = {
-        'services': services,
-    }
+def new_registered_service_form(request):
+    
+    if request.method == 'POST':
+        form = NewRegisteredServiceForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            header = {
+                "HX-Refresh": "true",
+            }
+            return HttpResponse("<div>Form submitted successfully!</div>", status=200, headers=header)
+    else:
+        form = NewRegisteredServiceForm()
 
-    return render(request, 'settings.html', context)
+    return render(request, 'components/new-registered-service-form.html', {'form': form})
 
 def get_registered_service(func):
     """
@@ -52,6 +64,7 @@ def component_service_pill(request, registered_service: RegisteredService):
 
 @get_registered_service
 def component_enhanced_service_data(request, registered_service: RegisteredService):
+
     service_def = registered_service.definition
 
     if service_def is None:

@@ -1,0 +1,14 @@
+<div class="form-container" id="form-container">
+    <form 
+        method="post"
+        hx-post="{% url 'new_registered_service_form' %}"
+        hx-target="#form-container"
+        hx-swap="innerHTML">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit">Submit</button>
+        <button type="button" onclick="document.getElementById('form-container').innerHTML = '';">
+        Cancel
+        </button>
+    </form>
+</div>
