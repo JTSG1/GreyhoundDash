@@ -33,3 +33,14 @@ class ServiceDefinitions:
         Returns None if the service is not found.
         """
         return cls.definition_dict.get(service_type, None)
+    
+    @classmethod
+    def get_description(cls, service_type: str) -> str:
+        """
+        Get the description of the service by its identifier string (e.g., 'portainer').
+        Returns an empty string if the service is not found.
+        """
+        definition = cls.get_definition(service_type)
+        if definition:
+            return definition.description
+        return ""

@@ -94,5 +94,5 @@ class EnhancedServiceBase(ServiceBase):
             tags=cls.tags,
             is_enhanced=cls.is_enhanced,
             service_class=cls,
-            enhanced_auth_fields=[]
+            enhanced_auth_fields=cls.enhanced_auth_fields
         ))

@@ -18,8 +18,8 @@ class ServiceVikunja(EnhancedServiceBase):
     """    
     id = "vikunja"
     name:str = 'Vikunja'
-    description:str = 'An open-source, self-hosted task management application that helps you plan, organize, and manage your personal or team projects efficiently.',
-    tags: list[str] = ['productivity', 'task management', 'kanban', 'self-hosted', 'todo'],
+    description:str = 'An open-source, self-hosted task management application that helps you plan, organize, and manage your personal or team projects efficiently.'
+    tags: list[str] = ['productivity', 'task management', 'kanban', 'self-hosted', 'todo']
     enhanced_auth_fields: list[str] = ['username', 'password']
     is_enhanced: bool = True
 

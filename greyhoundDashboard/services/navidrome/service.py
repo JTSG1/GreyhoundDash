@@ -17,8 +17,8 @@ class ServiceNavidrome(EnhancedServiceBase):
     """
     id:str = 'navidrome'
     name:str = 'Navidrome'
-    description:str = 'A self hosted music server with Subsonic API.',
-    tags: list[str] = ['music', 'entertainment'],
+    description:str = 'A self hosted music server with Subsonic API.'
+    tags: list[str] = ['music', 'entertainment']
     enhanced_auth_fields: list[str] = ['username', 'password']
     is_enhanced: bool = True
 
