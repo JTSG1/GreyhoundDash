@@ -1,0 +1,11 @@
+
+services:
+  greyhound:
+    build: .
+    container_name: greyhound
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # mount dev db in container for this example
+    volumes:
+      - ./greyhoundDashboard/db.sqlite3:/app/db.sqlite3
