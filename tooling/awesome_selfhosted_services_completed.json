@@ -1,0 +1,152 @@
+{
+  "0AD": {
+    "name": "0 A.D.",
+    "description": "Cross-platform real-time strategy game of ancient warfare.",
+    "homepage": "https://play0ad.com/"
+  },
+  "2fauth": {
+    "name": "2FAuth",
+    "description": "Manage your Two-Factor Authentication (2FA) accounts and generate their security codes.",
+    "homepage": "https://github.com/Bubka/2FAuth"
+  },
+  "4gaBoards": {
+    "name": "4ga Boards",
+    "description": "Straightforward realtime kanban boards management for intuitive task tracking. Featuring an elegant dark mode, collapsible todo lists, and multitasking tools to supercharge your team\u00e2\u0080\u0099s productivity.",
+    "homepage": "https://4gaboards.com"
+  },
+  "aDarkRoom": {
+    "name": "A Dark Room",
+    "description": "Minimalist text adventure game for your browser.",
+    "homepage": "https://github.com/doublespeakgames/adarkroom"
+  },
+  "accent": {
+    "name": "Accent",
+    "description": "Developer-oriented translation tool.",
+    "homepage": "https://www.accent.reviews/"
+  },
+  "acpAdmin": {
+    "name": "ACP Admin",
+    "description": "CSA administration. Manage members, subscriptions, deliveries, drop-off locations, member participation, invoices and emails (documentation in French).",
+    "homepage": "https://acp-admin.ch/"
+  },
+  "activepieces": {
+    "name": "Activepieces",
+    "description": "No-code business automation tool like Zapier or Tray. For example, you can send a Slack notification for each new Trello card.",
+    "homepage": "https://www.activepieces.com"
+  },
+  "activitywatch": {
+    "name": "ActivityWatch",
+    "description": "Automatically track how you spend time on your devices.",
+    "homepage": "https://activitywatch.net"
+  },
+  "actual": {
+    "name": "Actual",
+    "description": "Local-first personal finance tool based on zero-sum budgeting, supporting synchronization across devices, custom rules, manual transaction importing (from QIF, OFX, and QFX files), and optional automatic synchronization with many banks.",
+    "homepage": "https://actualbudget.org"
+  },
+  "adguardHome": {
+    "name": "AdGuard Home",
+    "description": "User-friendly ads & trackers blocking DNS server.",
+    "homepage": "https://adguard.com/en/adguard-home/overview.html"
+  },
+  "admidio": {
+    "name": "admidio",
+    "description": "User management system for websites of organizations and groups. The system has a flexible role model so that it\u00e2\u0080\u0099s possible to reflect the structure and permissions of your organization.",
+    "homepage": "https://www.admidio.org/"
+  },
+  "adminer": {
+    "name": "Adminer",
+    "description": "Database management in a single PHP file. Available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
+    "homepage": "https://www.adminer.org/"
+  },
+  "adventurelog": {
+    "name": "AdventureLog",
+    "description": "Travel tracker and trip planner.",
+    "homepage": "https://adventurelog.app"
+  },
+  "affineCommunityEdition": {
+    "name": "AFFiNE Community Edition",
+    "description": "Next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, customizable and ready to use (alternative to Notion and Miro).",
+    "homepage": "https://affine.pro/"
+  },
+  "aimeos": {
+    "name": "Aimeos",
+    "description": "E-commerce framework for building custom online shops, market places and complex B2B applications scaling to billions of items with Laravel.",
+    "homepage": "https://aimeos.org/"
+  },
+  "airtrail": {
+    "name": "AirTrail",
+    "description": "Personal flight tracking system.",
+    "homepage": "https://airtrail.johan.ohly.dk"
+  },
+  "akkoma": {
+    "name": "Akkoma",
+    "description": "Federated microblogging server with Mastodon, GNU social, and ActivityPub compatibility.",
+    "homepage": "https://akkoma.social/"
+  },
+  "aleph": {
+    "name": "Aleph",
+    "description": "Tool for indexing large amounts of both documents (PDF, Word, HTML) and structured (CSV, XLS, SQL) data for easy browsing and search. It is built with investigative reporting as a primary use case.",
+    "homepage": "https://aleph.occrp.org/"
+  },
+  "alerthub": {
+    "name": "AlertHub",
+    "description": "Get alerts from GitHub releases.",
+    "homepage": "https://github.com/Ardakilic/alerthub"
+  },
+  "alfIo": {
+    "name": "Alf.io",
+    "description": "Ticket reservation system.",
+    "homepage": "https://alf.io/"
+  },
+  "alfrescoCommunityEdition": {
+    "name": "Alfresco Community Edition",
+    "description": "The open source Enterprise Content Management software that handles any type of content, allowing users to easily share and collaborate on content.",
+    "homepage": "https://www.alfresco.com/products/community/download"
+  },
+  "algernon": {
+    "name": "Algernon",
+    "description": "Small self-contained pure-Go web server with Lua, Markdown, HTTP/2, QUIC, Redis and PostgreSQL support.",
+    "homepage": "https://algernon.roboticoverlords.org/"
+  },
+  "aliasvault": {
+    "name": "AliasVault",
+    "description": "End-to-end encrypted password manager with a built-in email alias generator and server.",
+    "homepage": "https://www.aliasvault.net"
+  },
+  "ampache": {
+    "name": "Ampache",
+    "description": "Web based audio/video streaming application.",
+    "homepage": "https://ampache.org/"
+  },
+  "amusewiki": {
+    "name": "AmuseWiki",
+    "description": "Amusewiki is based on the Emacs Muse markup, remaining mostly compatible with the original implementation. It can work as a read-only site, as a moderated wiki, or as a fully open wiki or even as a private site.",
+    "homepage": "https://amusewiki.org/"
+  },
+  "anchr": {
+    "name": "Anchr",
+    "description": "Toolbox for tiny tasks on the internet, including bookmark collections, URL shortening and (encrypted) image uploads.",
+    "homepage": "https://anchr.io"
+  },
+  "anonaddy": {
+    "name": "AnonAddy",
+    "description": "Email forwarding service for creating aliases.",
+    "homepage": "https://anonaddy.com"
+  },
+  "ansibleNas": {
+    "name": "Ansible-NAS",
+    "description": "Build a full-featured home server with this playbook and an Ubuntu box.",
+    "homepage": "https://github.com/DaveStephens/ansible-nas"
+  },
+  "answer": {
+    "name": "Answer",
+    "description": "Knowledge-based community software. You can use it to quickly build your Q&A community for product technical support, customer support, user communication, and more.",
+    "homepage": "https://answer.dev/"
+  },
+  "antville": {
+    "name": "Antville",
+    "description": "Free, open source project aimed at the development of a high performance, feature rich weblog hosting software.",
+    "homepage": "https://antville.org"
+  }
+}
