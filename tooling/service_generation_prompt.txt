@@ -30,7 +30,7 @@ This services homepage is {% service_homepage %}
 
 Ensure that the base classes are imported correctly based on the comments atop the file. They should be imported from services level, not greyhoundDashboard
 
-You must also search for the logo of the service being referenced and supply the url in the response
+You must do deep research using the web search tool in order to determine if the app requested is a webapp.
 
 The focus is on webapps, if the service queried is not a web app. respond with web_app = False othwerwise mark it as True
 
