@@ -79,14 +79,7 @@ class ServiceGenerator:
 
         # Save the logo to a file
         logo_url = content.logo
-        try:
-            logo = requests.get(logo_url)
-            logo.raise_for_status()
-            with open(f"greyhoundDashboard/core/static/services/logos/{content.file_name.replace('.py', '.png')}", "wb") as logo_file:
-                logo_file.write(logo.content)
-        except requests.RequestException as e:
-            print(f"Failed to download logo for {service_name}: {e}")
-            content.logo = ""
+        # ignoring images for now
         
 
     def __parse_retrieved_service_data(self):
@@ -154,6 +147,8 @@ class ServiceGenerator:
                     services=added_list_local
                 )
 
+            if counter == 30:
+                break # Stop after processing 30 services for this run
 
         # Save the completed services list
         print("All services processed.")
