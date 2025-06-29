@@ -204,8 +204,8 @@ class ServiceGenerator:
         subprocess.run(["git", "checkout", "main"], check=True)
 
         pr = self.repo.create_pull(                          # ⇦ GitHub API: POST /pulls :contentReference[oaicite:1]{index=1}
-            title = "Add shiny new feature",
-            body  = f"This implements the following service: \n\n { '\n'.join(services) }",
+            title = f"Add new basic services from service generation {services[0]} to {services[-1]}",
+            body  = f"This implements the following services: \n\n { '\n'.join(services) }",
             head  = branch_name,         # what you just created
             base  = "main",             # where you want it merged
             draft = False               # or True for a draft PR
