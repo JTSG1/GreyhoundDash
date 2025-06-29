@@ -137,7 +137,7 @@ class ServiceGenerator:
             if counter % 10 == 0:
                 print(f"Processed {counter} services so far.")
 
-            if counter == 10:
+            if counter == 1:
 
                 print("Processed 10 services. Stopping for now to avoid rate limits.")
 
