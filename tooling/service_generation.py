@@ -135,17 +135,16 @@ class ServiceGenerator:
             counter += 1
 
             if counter % 10 == 0:
-                print(f"Processed {counter} services so far.")
 
-            if counter == 10:
-
-                print("Processed 10 services. Stopping for now to avoid rate limits.")
+                print("Processed 10 services. Stopping for now to avoid rate limits. Creating a branch and raising a PR for the last 10 services...")
 
                 self.create_branch_and_raise_pr(
                     branch_name=f"feat/service-generation-{counter}-{md5(''.join(added_list_local).encode()).hexdigest()}",
                     add_all=True,
                     services=added_list_local
                 )
+
+                added_list_local = []  # Reset the list for the next batch
 
             if counter == 30:
                 break # Stop after processing 30 services for this run
