@@ -68,7 +68,9 @@ class ServiceGenerator:
                     "content": prompt
                 }
             ],
-            text_format=ServiceResponseSchema
+            text_format=ServiceResponseSchema,
+            tool_choice="required",
+            tools=[{"type": "web_search_preview"}],
         )
 
         content = response.output_parsed
