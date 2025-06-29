@@ -56,7 +56,7 @@ class ServiceGenerator:
             service_homepage=homepage
         )
         try:
-            
+
             response = self.client.responses.parse(
                 model="gpt-4o-mini",
                 input=[
@@ -153,11 +153,8 @@ class ServiceGenerator:
             counter += 1
 
             if counter % 10 == 0:
-                print(f"Processed {counter} services so far.")
 
-            if counter == 10:
-
-                print("Processed 10 services. Stopping for now to avoid rate limits.")
+                print("Processed 10 services. Stopping for now to avoid rate limits. Creating a branch and raising a PR...")
 
                 self.create_branch_and_raise_pr(
                     branch_name=f"feat/service-generation-{counter}-{md5(''.join(f"{name}: {created}" for name, created in added_list_local).encode()).hexdigest()}",
