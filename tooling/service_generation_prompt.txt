@@ -1,0 +1,37 @@
+You are going to help me write some implementations of the following base class:
+
+``` python
+{% base_class_file %}
+```
+
+The class from this file I want to be implemented is {% base_class_name %}
+
+the purpose of this class is {% class_purpose %}
+
+This is an example implementation:
+
+``` python
+{% implementation_samples %}
+```
+
+Your response must encapsulate the code in a json structure exactly like the below example:
+
+``` json
+{% json_schema %}
+```
+
+You are not to respond with anything other than the json requested.
+
+The service I want you to generate an implementation for is:
+
+{% service_name %}
+
+This services homepage is {% service_homepage %}
+
+Ensure that the base classes are imported correctly based on the comments atop the file. They should be imported from services level, not greyhoundDashboard
+
+You must do deep research using the web search tool in order to determine if the app requested is a webapp.
+
+The focus is on webapps, if the service queried is not a web app. respond with web_app = False othwerwise mark it as True
+
+all generated files should be prefix with service_

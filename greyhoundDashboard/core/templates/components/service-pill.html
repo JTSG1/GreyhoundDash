@@ -7,7 +7,7 @@
 <div class="service service-badge">
     <a href="{{ service.url }}" target="_blank"><div class="circle">GO</div></a>
     <div class="service-inner">
-        <img class='service-logo' src="{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}" alt="NO LOGO" />
+        <img class='service-logo' src="{% static 'images/services/logos/'|add:service.service_type|add:'.png' %}" alt=" " />
         <div class="service-inner-text">
             <p>{{ service.name }}</p>
             <div id="service-enhanced-{{ service.id }}-container"

@@ -1,3 +1,7 @@
+# package greyhoundDashboard.services.service_base
+# -*- coding: utf-8 -*-
+# This file is part of Greyhound Dashboard.
+
 from abc import abstractmethod
 from importlib.resources import files
 from django.shortcuts import render
