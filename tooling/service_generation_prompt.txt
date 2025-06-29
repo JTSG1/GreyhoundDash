@@ -28,6 +28,8 @@ The service I want you to generate an implementation for is:
 
 This services homepage is {% service_homepage %}
 
-Ensure that the base classes are imported correctly based on the comments atop the file
+Ensure that the base classes are imported correctly based on the comments atop the file. They should be imported from services level, not greyhoundDashboard
+
+You must also search for the logo of the service being referenced and supply the url in the response
 
 all generated files should be prefix with service_

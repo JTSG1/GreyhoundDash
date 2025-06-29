@@ -1,0 +1,27 @@
+{
+  "0AD": {
+    "name": "0 A.D.",
+    "description": "Cross-platform real-time strategy game of ancient warfare.",
+    "homepage": "https://play0ad.com/"
+  },
+  "2fauth": {
+    "name": "2FAuth",
+    "description": "Manage your Two-Factor Authentication (2FA) accounts and generate their security codes.",
+    "homepage": "https://github.com/Bubka/2FAuth"
+  },
+  "4gaBoards": {
+    "name": "4ga Boards",
+    "description": "Straightforward realtime kanban boards management for intuitive task tracking. Featuring an elegant dark mode, collapsible todo lists, and multitasking tools to supercharge your team\u00e2\u0080\u0099s productivity.",
+    "homepage": "https://4gaboards.com"
+  },
+  "aDarkRoom": {
+    "name": "A Dark Room",
+    "description": "Minimalist text adventure game for your browser.",
+    "homepage": "https://github.com/doublespeakgames/adarkroom"
+  },
+  "accent": {
+    "name": "Accent",
+    "description": "Developer-oriented translation tool.",
+    "homepage": "https://www.accent.reviews/"
+  }
+}

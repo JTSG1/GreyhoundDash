@@ -6,6 +6,7 @@ from github import Github
 import os
 import subprocess
 from hashlib import md5
+import requests
 
 class ServiceGenerator:
     """
@@ -78,9 +79,15 @@ class ServiceGenerator:
 
         # Save the logo to a file
         logo_url = content.logo
-        # logo_response = client.images.download(logo_url)
-        # with open(f"tooling/test_generations/services/{service_name}.png", "wb") as logo_file:
-        #     logo_file.write(logo_response)
+        try:
+            logo = requests.get(logo_url)
+            logo.raise_for_status()
+            with open(f"greyhoundDashboard/core/static/services/logos/{content.file_name.replace('.py', '.png')}", "wb") as logo_file:
+                logo_file.write(logo.content)
+        except requests.RequestException as e:
+            print(f"Failed to download logo for {service_name}: {e}")
+            content.logo = ""
+        
 
     def __parse_retrieved_service_data(self):
 
@@ -146,7 +153,7 @@ class ServiceGenerator:
                     add_all=True,
                     services=added_list_local
                 )
-                break
+
 
         # Save the completed services list
         print("All services processed.")
