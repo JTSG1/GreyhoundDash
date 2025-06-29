@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from github import Github
 import os
 import subprocess
+from hashlib import md5
 
 class ServiceGenerator:
     """
@@ -110,6 +111,8 @@ class ServiceGenerator:
         
         counter = 0
 
+        added_list_local = []
+
         for service_name, service_info in self.service_data.items():
 
             if self.completed_services.get(service_name):
@@ -127,6 +130,8 @@ class ServiceGenerator:
                 service_info = service_info
             )
 
+            added_list_local.append(service_info['name'])
+
             counter += 1
 
             if counter % 10 == 0:
@@ -137,7 +142,7 @@ class ServiceGenerator:
                 print("Processed 10 services. Stopping for now to avoid rate limits.")
 
                 self.create_branch_and_raise_pr(
-                    branch_name=f"service-generation-{counter}",
+                    branch_name=f"feat/service-generation-{counter}-{md5(''.join(added_list_local).encode()).hexdigest()}",
                     add_all=True
                 )
                 break
@@ -169,7 +174,7 @@ class ServiceGenerator:
         head, *tail = words
         return head.lower() + "".join(w.capitalize() for w in tail)
 
-    def create_branch_and_raise_pr(self, branch_name: str, *, add_all: bool = True):
+    def create_branch_and_raise_pr(self, branch_name: str, *, add_all: bool = True, services: list = None):
         """
         Create a new branch in the GitHub repository.
         """
@@ -200,7 +205,7 @@ class ServiceGenerator:
 
         pr = self.repo.create_pull(                          # ⇦ GitHub API: POST /pulls :contentReference[oaicite:1]{index=1}
             title = "Add shiny new feature",
-            body  = "This implements …\n\nCloses #42",
+            body  = f"This implements the following service: { ', '.join(services) }",
             head  = branch_name,         # what you just created
             base  = "main",             # where you want it merged
             draft = False               # or True for a draft PR
