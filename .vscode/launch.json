@@ -4,7 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
             "name": "Python Debugger: Django",
             "type": "debugpy",
@@ -18,5 +17,28 @@
             "autoStartBrowser": false,
             "program": "${workspaceFolder}/greyhoundDashboard/manage.py"
         }
+        ,
+        {
+            "name": "Python Debugger: Service Generation",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/tooling/service_generation.py",
+            // "args": [
+            //     "--base_class_file", "${workspaceFolder}/greyhoundDashboard/services/base_service.py",
+            //     "--base_class_name", "BaseService"
+            // ],
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python Debugger: awesome_selfhosted_parser",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/tooling/awesome_selfhosted_parser.py",
+            // "args": [
+            //     "--base_class_file", "${workspaceFolder}/greyhoundDashboard/services/base_service.py",
+            //     "--base_class_name", "BaseService"
+            // ],
+            "envFile": "${workspaceFolder}/.env"
+        },
     ]
 }
