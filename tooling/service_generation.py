@@ -49,7 +49,7 @@ class ServiceGenerator:
             self.prompt_template,
             base_class_file=open("greyhoundDashboard/services/service_base.py", "r").read(),
             base_class_name="ServiceBase",
-            implementation_samples=open("greyhoundDashboard/services/basic_services.py", "r").read(),
+            implementation_samples=open("greyhoundDashboard/services/basic_services/service_grafana.py", "r").read(),
             json_schema=json.dumps(JSON_RESPONSE_SCHEMA, indent=2),
             service_name=service_name,
             service_homepage=homepage
