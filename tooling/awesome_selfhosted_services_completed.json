@@ -1,0 +1,62 @@
+{
+  "0AD": {
+    "name": "0 A.D.",
+    "description": "Cross-platform real-time strategy game of ancient warfare.",
+    "homepage": "https://play0ad.com/",
+    "created": true
+  },
+  "2fauth": {
+    "name": "2FAuth",
+    "description": "Manage your Two-Factor Authentication (2FA) accounts and generate their security codes.",
+    "homepage": "https://github.com/Bubka/2FAuth",
+    "created": true
+  },
+  "4gaBoards": {
+    "name": "4ga Boards",
+    "description": "Straightforward realtime kanban boards management for intuitive task tracking. Featuring an elegant dark mode, collapsible todo lists, and multitasking tools to supercharge your team\u00e2\u0080\u0099s productivity.",
+    "homepage": "https://4gaboards.com",
+    "created": true
+  },
+  "aDarkRoom": {
+    "name": "A Dark Room",
+    "description": "Minimalist text adventure game for your browser.",
+    "homepage": "https://github.com/doublespeakgames/adarkroom",
+    "created": true
+  },
+  "accent": {
+    "name": "Accent",
+    "description": "Developer-oriented translation tool.",
+    "homepage": "https://www.accent.reviews/",
+    "created": true
+  },
+  "acpAdmin": {
+    "name": "ACP Admin",
+    "description": "CSA administration. Manage members, subscriptions, deliveries, drop-off locations, member participation, invoices and emails (documentation in French).",
+    "homepage": "https://acp-admin.ch/",
+    "created": true
+  },
+  "activepieces": {
+    "name": "Activepieces",
+    "description": "No-code business automation tool like Zapier or Tray. For example, you can send a Slack notification for each new Trello card.",
+    "homepage": "https://www.activepieces.com",
+    "created": true
+  },
+  "activitywatch": {
+    "name": "ActivityWatch",
+    "description": "Automatically track how you spend time on your devices.",
+    "homepage": "https://activitywatch.net",
+    "created": true
+  },
+  "actual": {
+    "name": "Actual",
+    "description": "Local-first personal finance tool based on zero-sum budgeting, supporting synchronization across devices, custom rules, manual transaction importing (from QIF, OFX, and QFX files), and optional automatic synchronization with many banks.",
+    "homepage": "https://actualbudget.org",
+    "created": true
+  },
+  "adguardHome": {
+    "name": "AdGuard Home",
+    "description": "User-friendly ads & trackers blocking DNS server.",
+    "homepage": "https://adguard.com/en/adguard-home/overview.html",
+    "created": true
+  }
+}
