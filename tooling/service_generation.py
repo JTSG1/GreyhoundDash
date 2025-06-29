@@ -44,7 +44,7 @@ class ServiceGenerator:
 
         return template
 
-    def generate_service_code(self, service_name: str, homepage: str) -> str:
+    def generate_service_code(self, service_name: str, homepage: str, call_count = 0) -> str:
 
         prompt = self.replace_template_variables(
             self.prompt_template,
@@ -73,7 +73,16 @@ class ServiceGenerator:
             tools=[{"type": "web_search_preview"}],
         )
 
-        content = response.output_parsed
+        try:
+            content = response.output_parsed
+        except Exception as e:
+            print(f"Error parsing response for service {service_name}: {e}")
+            if call_count < 3:
+                print(f"Retrying for service {service_name} (attempt {call_count + 1})...")
+                return self.generate_service_code(service_name, homepage, call_count + 1)
+            else:
+                print(f"Failed to generate code for service {service_name} after 3 attempts.")
+                return False
 
         if content.web_app:
 
