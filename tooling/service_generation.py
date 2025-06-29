@@ -160,7 +160,7 @@ class ServiceGenerator:
                 print("Processed 10 services. Stopping for now to avoid rate limits.")
 
                 self.create_branch_and_raise_pr(
-                    branch_name=f"feat/service-generation-{counter}-{md5(''.join(added_list_local).encode()).hexdigest()}",
+                    branch_name=f"feat/service-generation-{counter}-{md5(''.join(f"{name}: {created}" for name, created in added_list_local).encode()).hexdigest()}",
                     add_all=True,
                     services=added_list_local
                 )
