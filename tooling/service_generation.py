@@ -73,13 +73,17 @@ class ServiceGenerator:
 
         content = response.output_parsed
 
-        # Save the generated code to a file
-        with open(f"greyhoundDashboard/services/basic_services/{content.file_name}", "w") as code_file:
-            code_file.write(content.code)
+        if content.web_app:
 
-        # Save the logo to a file
-        logo_url = content.logo
-        # ignoring images for now
+            # Save the generated code to a file
+            with open(f"greyhoundDashboard/services/basic_services/{content.file_name}", "w") as code_file:
+                code_file.write(content.code)
+
+            # Save the logo to a file
+            logo_url = content.logo
+            # ignoring images for now
+        else:
+            print(f"Service {service_name} is not a web app. Skipping code generation.")
         
 
     def __parse_retrieved_service_data(self):
@@ -219,7 +223,8 @@ JSON_RESPONSE_SCHEMA = {
     "service": "{{service_name}}",
     "code": "string",
     "logo": "string",
-    "branch_name": "string"
+    "branch_name": "string",
+    "web_app": "boolean"
 }
 
 class ServiceResponseSchema(BaseModel):
@@ -229,6 +234,7 @@ class ServiceResponseSchema(BaseModel):
     code: str
     logo: str
     branch_name: str
+    web_app: bool
 
 serviceGenerator = ServiceGenerator()
 serviceGenerator.iterate_services()

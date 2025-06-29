@@ -32,4 +32,6 @@ Ensure that the base classes are imported correctly based on the comments atop t
 
 You must also search for the logo of the service being referenced and supply the url in the response
 
+The focus is on webapps, if the service queried is not a web app. respond with web_app = False othwerwise mark it as True
+
 all generated files should be prefix with service_
