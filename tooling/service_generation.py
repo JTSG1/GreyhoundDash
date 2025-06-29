@@ -82,8 +82,10 @@ class ServiceGenerator:
             # Save the logo to a file
             logo_url = content.logo
             # ignoring images for now
+            return True
         else:
             print(f"Service {service_name} is not a web app. Skipping code generation.")
+            return False
         
 
     def __parse_retrieved_service_data(self):
@@ -128,13 +130,14 @@ class ServiceGenerator:
                 continue
             
             print(f"Generating code for {service_name}...")
-            self.generate_service_code(service_name, service_info['homepage'])
+            created = self.generate_service_code(service_name, service_info['homepage'])
             self.complete_service(
                 service_name = service_info['name'],
-                service_info = service_info
+                service_info = service_info,
+                created = created
             )
 
-            added_list_local.append(service_info['name'])
+            added_list_local.append((service_info['name'], created))
 
             counter += 1
 
@@ -157,11 +160,12 @@ class ServiceGenerator:
         # Save the completed services list
         print("All services processed.")
 
-    def complete_service(self, service_name: str, service_info: dict):
+    def complete_service(self, service_name: str, service_info: dict, created: bool):
         """
         Mark a service as completed and save its information.
         """
         self.completed_services[self.to_camel(service_name)] = service_info
+        self.completed_services[self.to_camel(service_name)]['created'] = created
         print(f"Service {service_name} marked as completed.")
 
         with open(self.completed_service_path, "w") as completed_services_file_handle:
