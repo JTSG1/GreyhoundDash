@@ -55,25 +55,25 @@ class ServiceGenerator:
             service_name=service_name,
             service_homepage=homepage
         )
-
-        response = self.client.responses.parse(
-            model="gpt-4o-mini",
-            input=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that generates code for services."
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            text_format=ServiceResponseSchema,
-            tool_choice="required",
-            tools=[{"type": "web_search_preview"}],
-        )
-
         try:
+            
+            response = self.client.responses.parse(
+                model="gpt-4o-mini",
+                input=[
+                    {
+                        "role": "system",
+                        "content": "You are a helpful assistant that generates code for services."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                text_format=ServiceResponseSchema,
+                tool_choice="required",
+                tools=[{"type": "web_search_preview"}],
+            )
+            
             content = response.output_parsed
         except Exception as e:
             print(f"Error parsing response for service {service_name}: {e}")
