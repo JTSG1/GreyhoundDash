@@ -77,11 +77,11 @@ class ServiceGenerator:
             content = response.output_parsed
         except Exception as e:
             print(f"Error parsing response for service {service_name}: {e}")
-            if call_count < 3:
+            if call_count < 5:
                 print(f"Retrying for service {service_name} (attempt {call_count + 1})...")
                 return self.generate_service_code(service_name, homepage, call_count + 1)
             else:
-                print(f"Failed to generate code for service {service_name} after 3 attempts.")
+                print(f"Failed to generate code for service {service_name} after 5 attempts.")
                 return False
 
         if content.web_app:
