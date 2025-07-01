@@ -11,6 +11,60 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+class GithubPRCreator:
+    """
+    This class is responsible for creating a pull request in the GitHub repository.
+    It uses the GitHub API to create the pull request.
+    """
+    def __init__(self, github_client: Github, repo_name: str, base_branch: str = "main"):
+
+        self.github_client = github_client
+        self.repo = self.github_client.get_repo(repo_name)
+        self.base = self.repo.get_branch(base_branch)
+
+    def create_branch_and_raise_pr(self, branch_name: str, *, add_all: bool = True, services: list = None):
+        """
+        Create a new branch in the GitHub repository.
+        """
+
+        logging.info(f"Creating branch '{branch_name}' and raising a PR.")
+
+        try:
+            self.repo.get_branch(branch_name)
+            raise ValueError(f"Remote branch '{branch_name}' already exists")
+        except Exception:
+            pass  # branch really does not exist
+
+        # 1. create & switch
+        subprocess.run(["git", "checkout", "-b", branch_name], check=True)
+
+        # 2. stage changes
+        if add_all:
+            subprocess.run(["git", "add", "-A"], check=True)
+
+        # 3. commit (will throw if nothing staged)
+        subprocess.run(
+            ["git", "commit", "-m", "feat: automated bot commit for services"],
+            check=True,
+        )
+
+        # 4. push and set upstream (creates remote ref)
+        subprocess.run(["git", "push", "-u", "origin", branch_name], check=True)
+
+        # 5. switch back
+        subprocess.run(["git", "checkout", "main"], check=True)
+
+        pr = self.repo.create_pull(                         
+            title = f"Add new basic services from service generation {services[0]} to {services[-1]}",
+            body = "This implements the following services:\n\n" + "\n".join(f"{name}: {created}" for name, created in services),
+            head  = branch_name,         # what you just created
+            base  = "main",             # where you want it merged
+            draft = False               # or True for a draft PR
+        )
+
+        logging.info(f"Pull request created: {pr.html_url}")
+
+
 class ServiceGenerator:
     """
     This class is responsible for generating service code based on a template and provided parameters.
@@ -20,15 +74,13 @@ class ServiceGenerator:
     PR_FREQUENCY = 10  # Number of services to process before creating a PR
     BATCH_SIZE = 30  # Number of services to process in one run
 
-    def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_client: Github = None):
+    def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_pr_creator: GithubPRCreator = None):
         self.openai_client = openai_client
         self.prompt_template = open(prompt_template_path, "r").read()
         self.service_data = self.__parse_retrieved_service_data()
         self.completed_services = self.__get_completed_list()
 
-        self.github_client = github_client
-        self.repo = self.github_client.get_repo("JTSG1/GreyhoundDash")
-        self.base = self.repo.get_branch("main")
+        self.github_pr_creator = github_pr_creator
 
         if self.BATCH_SIZE % self.PR_FREQUENCY != 0:
             raise ValueError("BATCH_SIZE must be a multiple of PR_FREQUENCY to ensure even distribution of services in PRs.")
@@ -171,11 +223,13 @@ class ServiceGenerator:
 
                 logging.info("Processed 10 services. Stopping for now to avoid rate limits. Creating a branch and raising a PR...")
 
-                self.create_branch_and_raise_pr(
+                self.github_pr_creator.create_branch_and_raise_pr(
                     branch_name=f"feat/service-generation-{counter}-{md5(''.join(f"{name}: {created}" for name, created in local_added).encode()).hexdigest()}",
                     add_all=True,
                     services=local_added
                 )
+
+                local_added = []  # Reset the local added list after creating a PR
 
             if counter == self.BATCH_SIZE:
                 logging.info(f"Processed {self.BATCH_SIZE} services. Stopping for this run.")
@@ -212,47 +266,6 @@ class ServiceGenerator:
         head, *tail = words
         return head.lower() + "".join(w.capitalize() for w in tail)
 
-    def create_branch_and_raise_pr(self, branch_name: str, *, add_all: bool = True, services: list = None):
-        """
-        Create a new branch in the GitHub repository.
-        """
-
-        logging.info(f"Creating branch '{branch_name}' and raising a PR.")
-
-        try:
-            self.repo.get_branch(branch_name)
-            raise ValueError(f"Remote branch '{branch_name}' already exists")
-        except Exception:
-            pass  # branch really does not exist
-
-        # 1. create & switch
-        subprocess.run(["git", "checkout", "-b", branch_name], check=True)
-
-        # 2. stage changes
-        if add_all:
-            subprocess.run(["git", "add", "-A"], check=True)
-
-        # 3. commit (will throw if nothing staged)
-        subprocess.run(
-            ["git", "commit", "-m", "feat: automated bot commit for services"],
-            check=True,
-        )
-
-        # 4. push and set upstream (creates remote ref)
-        subprocess.run(["git", "push", "-u", "origin", branch_name], check=True)
-
-        # 5. switch back
-        subprocess.run(["git", "checkout", "main"], check=True)
-
-        pr = self.repo.create_pull(                         
-            title = f"Add new basic services from service generation {services[0]} to {services[-1]}",
-            body = "This implements the following services:\n\n" + "\n".join(f"{name}: {created}" for name, created in services),
-            head  = branch_name,         # what you just created
-            base  = "main",             # where you want it merged
-            draft = False               # or True for a draft PR
-        )
-
-        logging.info(f"Pull request created: {pr.html_url}")
 
 JSON_RESPONSE_SCHEMA = {
     "file_name": "{{service_name}}.py",
@@ -276,9 +289,15 @@ if __name__ == "__main__":
 
     logging.info("Starting service generation...")
 
+    github_pr_creator = GithubPRCreator(
+        github_client = Github(os.getenv("GH_TOKEN")),
+        repo_name = "JTSG1/GreyhoundDash",
+        base_branch = "main"
+    )
+
     serviceGenerator = ServiceGenerator(
         openai_client = OpenAI(),
-        github_client = Github(os.getenv("GH_TOKEN"))
+        github_pr_creator = github_pr_creator
     )
     serviceGenerator.iterate_services()
 
