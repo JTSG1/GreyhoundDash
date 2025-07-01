@@ -137,6 +137,7 @@ class ServiceGenerator:
                 text_format=ServiceResponseSchema,
                 tool_choice="required",
                 tools=[{"type": "web_search_preview"}],
+                temperature=0.1
             )
             
             content = response.output_parsed
