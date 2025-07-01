@@ -154,10 +154,6 @@ class ServiceGenerator:
             if self.completed_services.get(service_name):
                 logging.info(f"Service {service_name} already processed.")
                 continue
-
-            if service_name in self.completed_services:
-                logging.info(f"Service {service_name} already completed.")
-                continue
             
             logging.info(f"Generating code for {service_name}...")
             created = self.generate_service_code(service_name, service_info['homepage'])
