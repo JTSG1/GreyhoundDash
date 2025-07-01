@@ -6,24 +6,32 @@ from github import Github
 import os
 import subprocess
 from hashlib import md5
-import requests
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class ServiceGenerator:
     """
     This class is responsible for generating service code based on a template and provided parameters.
     It uses the OpenAI API to generate the code and save it to a file.
     """
-    completed_service_path = "tooling/awesome_selfhosted_services_completed.json"
+    COMPLETED_SERVICE_PATH = "tooling/awesome_selfhosted_services_completed.json"
+    PR_FREQUENCY = 10  # Number of services to process before creating a PR
+    BATCH_SIZE = 30  # Number of services to process in one run
 
-    def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt"):
-        self.client = OpenAI()
+    def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_client: Github = None):
+        self.openai_client = openai_client
         self.prompt_template = open(prompt_template_path, "r").read()
         self.service_data = self.__parse_retrieved_service_data()
         self.completed_services = self.__get_completed_list()
 
-        self.github_client = Github(os.getenv("GH_TOKEN"))
+        self.github_client = github_client
         self.repo = self.github_client.get_repo("JTSG1/GreyhoundDash")
         self.base = self.repo.get_branch("main")
+
+        if self.BATCH_SIZE % self.PR_FREQUENCY != 0:
+            raise ValueError("BATCH_SIZE must be a multiple of PR_FREQUENCY to ensure even distribution of services in PRs.")
 
     def replace_template_variables(
         self,
@@ -34,6 +42,8 @@ class ServiceGenerator:
         json_schema: dict,
         service_name: str, 
         service_homepage: str) -> str: 
+
+        logging.debug("Replacing template variables in the prompt template.")
     
         template = template.replace("{% base_class_file %}", base_class_file)
         template = template.replace("{% base_class_name %}", base_class_name)
@@ -46,6 +56,8 @@ class ServiceGenerator:
 
     def generate_service_code(self, service_name: str, homepage: str, call_count = 0) -> str:
 
+        logging.info(f"Generating code for service: {service_name} (attempt {call_count + 1})")
+
         prompt = self.replace_template_variables(
             self.prompt_template,
             base_class_file=open("greyhoundDashboard/services/service_base.py", "r").read(),
@@ -57,7 +69,7 @@ class ServiceGenerator:
         )
         try:
 
-            response = self.client.responses.parse(
+            response = self.openai_client.responses.parse(
                 model="gpt-4o-mini",
                 input=[
                     {
@@ -74,14 +86,14 @@ class ServiceGenerator:
                 tools=[{"type": "web_search_preview"}],
             )
             
-            content = response.output_parsed
+            content = response.output_parsedf
         except Exception as e:
-            print(f"Error parsing response for service {service_name}: {e}")
+            logging.error(f"Error parsing response for service {service_name}: {e}")
             if call_count < 5:
-                print(f"Retrying for service {service_name} (attempt {call_count + 1})...")
+                logging.info(f"Retrying for service {service_name} (attempt {call_count + 1})...")
                 return self.generate_service_code(service_name, homepage, call_count + 1)
             else:
-                print(f"Failed to generate code for service {service_name} after 5 attempts.")
+                logging.error(f"Failed to generate code for service {service_name} after 5 attempts.")
                 return False
 
         if content.web_app:
@@ -95,11 +107,12 @@ class ServiceGenerator:
             # ignoring images for now
             return True
         else:
-            print(f"Service {service_name} is not a web app. Skipping code generation.")
+            logging.warn(f"Service {service_name} is not a web app. Skipping code generation.")
             return False
         
-
     def __parse_retrieved_service_data(self):
+
+        logging.info("Parsing retrieved service data from JSON file.")
 
         with open("tooling/awesome_selfhosted_services.json", "r") as file:
             data = json.load(file)
@@ -108,15 +121,17 @@ class ServiceGenerator:
     
     def __get_completed_list(self):
 
+        logging.info("Loading completed services from JSON file.")
+
         try:
-            with open(self.completed_service_path, "r") as file:
+            with open(self.COMPLETED_SERVICE_PATH, "r") as file:
                 try:
                     data = json.load(file)
                 except json.JSONDecodeError:
-                    print(f"Error decoding JSON from {self.completed_service_path}. Returning an empty list.")
+                    logging.error(f"Error decoding JSON from {self.COMPLETED_SERVICE_PATH}. Returning an empty list.")
                     data = {}
         except FileNotFoundError:
-            print(f"Completed services file not found at {self.completed_service_path}. Returning an empty list.")
+            logging.error(f"Completed services file not found at {self.COMPLETED_SERVICE_PATH}. Returning an empty list.")
             data = {}
 
         return data
@@ -126,21 +141,25 @@ class ServiceGenerator:
         Iterate through the service data and generate code for each service.
         """
         
+        logging.info("Starting to iterate through services to generate code.")
+
         counter = 0
 
-        added_list_local = []
+        local_added = []
 
         for service_name, service_info in self.service_data.items():
 
+            logging.info(f"Processing service: {service_name}")
+
             if self.completed_services.get(service_name):
-                print(f"Service {service_name} already processed.")
+                logging.info(f"Service {service_name} already processed.")
                 continue
 
             if service_name in self.completed_services:
-                print(f"Service {service_name} already completed.")
+                logging.info(f"Service {service_name} already completed.")
                 continue
             
-            print(f"Generating code for {service_name}...")
+            logging.info(f"Generating code for {service_name}...")
             created = self.generate_service_code(service_name, service_info['homepage'])
             self.complete_service(
                 service_name = service_info['name'],
@@ -148,25 +167,29 @@ class ServiceGenerator:
                 created = created
             )
 
-            added_list_local.append((service_info['name'], created))
+            local_added.append((service_info['name'], created))
 
             counter += 1
 
-            if counter % 10 == 0:
+            if counter % self.PR_FREQUENCY == 0:
 
-                print("Processed 10 services. Stopping for now to avoid rate limits. Creating a branch and raising a PR...")
+                logging.info("Processed 10 services. Stopping for now to avoid rate limits. Creating a branch and raising a PR...")
 
                 self.create_branch_and_raise_pr(
-                    branch_name=f"feat/service-generation-{counter}-{md5(''.join(f"{name}: {created}" for name, created in added_list_local).encode()).hexdigest()}",
+                    branch_name=f"feat/service-generation-{counter}-{md5(''.join(f"{name}: {created}" for name, created in local_added).encode()).hexdigest()}",
                     add_all=True,
-                    services=added_list_local
+                    services=local_added
                 )
 
-            if counter == 30:
+            if counter == self.BATCH_SIZE:
+                logging.info(f"Processed {self.BATCH_SIZE} services. Stopping for this run.")
                 break # Stop after processing 30 services for this run
+            else:
+                logging.info(f"Processed {counter} services so far. Continuing to process more services...")
+                
 
         # Save the completed services list
-        print("All services processed.")
+        logging.info("All services processed.")
 
     def complete_service(self, service_name: str, service_info: dict, created: bool):
         """
@@ -174,9 +197,9 @@ class ServiceGenerator:
         """
         self.completed_services[self.to_camel(service_name)] = service_info
         self.completed_services[self.to_camel(service_name)]['created'] = created
-        print(f"Service {service_name} marked as completed.")
+        logging.info(f"Service {service_name} marked as completed.")
 
-        with open(self.completed_service_path, "w") as completed_services_file_handle:
+        with open(self.COMPLETED_SERVICE_PATH, "w") as completed_services_file_handle:
             completed_services_file_handle.write(json.dumps(self.completed_services, indent=2))
 
     def to_camel(self, s: str) -> str:
@@ -197,6 +220,9 @@ class ServiceGenerator:
         """
         Create a new branch in the GitHub repository.
         """
+
+        logging.info(f"Creating branch '{branch_name}' and raising a PR.")
+
         try:
             self.repo.get_branch(branch_name)
             raise ValueError(f"Remote branch '{branch_name}' already exists")
@@ -230,6 +256,8 @@ class ServiceGenerator:
             draft = False               # or True for a draft PR
         )
 
+        logging.info(f"Pull request created: {pr.html_url}")
+
 JSON_RESPONSE_SCHEMA = {
     "file_name": "{{service_name}}.py",
     "service": "{{service_name}}",
@@ -248,7 +276,14 @@ class ServiceResponseSchema(BaseModel):
     branch_name: str
     web_app: bool
 
-serviceGenerator = ServiceGenerator()
-serviceGenerator.iterate_services()
+if __name__ == "__main__":
 
-print("FIN")
+    logging.info("Starting service generation...")
+
+    serviceGenerator = ServiceGenerator(
+        openai_client = OpenAI(),
+        github_client = Github(os.getenv("GH_TOKEN"))
+    )
+    serviceGenerator.iterate_services()
+
+    logging.info("Ended service generation.")
