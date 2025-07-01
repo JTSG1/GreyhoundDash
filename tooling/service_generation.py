@@ -73,6 +73,7 @@ class ServiceGenerator:
     COMPLETED_SERVICE_PATH = "tooling/awesome_selfhosted_services_completed.json"
     PR_FREQUENCY = 10  # Number of services to process before creating a PR
     BATCH_SIZE = 10  # Number of services to process in one run
+    GPT_MODEL = "gpt-4o-mini"  # Model to use for OpenAI API
 
     def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_pr_creator: GithubPRCreator = None):
         self.openai_client = openai_client
@@ -122,7 +123,7 @@ class ServiceGenerator:
         try:
 
             response = self.openai_client.responses.parse(
-                model="gpt-4o",
+                model=self.GPT_MODEL,
                 input=[
                     {
                         "role": "system",
@@ -159,7 +160,7 @@ class ServiceGenerator:
             # ignoring images for now
             return True
         else:
-            logging.warn(f"Service {service_name} is not a web app. Skipping code generation.")
+            logging.warning(f"Service {service_name} is not a web app. Skipping code generation.")
             return False
         
     def __parse_retrieved_service_data(self):
