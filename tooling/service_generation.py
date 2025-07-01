@@ -72,7 +72,7 @@ class ServiceGenerator:
     """
     COMPLETED_SERVICE_PATH = "tooling/awesome_selfhosted_services_completed.json"
     PR_FREQUENCY = 10  # Number of services to process before creating a PR
-    BATCH_SIZE = 30  # Number of services to process in one run
+    BATCH_SIZE = 10  # Number of services to process in one run
 
     def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_pr_creator: GithubPRCreator = None):
         self.openai_client = openai_client
@@ -122,7 +122,7 @@ class ServiceGenerator:
         try:
 
             response = self.openai_client.responses.parse(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 input=[
                     {
                         "role": "system",
@@ -138,7 +138,7 @@ class ServiceGenerator:
                 tools=[{"type": "web_search_preview"}],
             )
             
-            content = response.output_parsedf
+            content = response.output_parsed
         except Exception as e:
             logging.error(f"Error parsing response for service {service_name}: {e}")
             if call_count < 5:
