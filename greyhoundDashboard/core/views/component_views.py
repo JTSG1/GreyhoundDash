@@ -33,7 +33,7 @@ def new_registered_service_form(request):
     else:
         form = NewRegisteredServiceForm()
 
-    return render(request, 'components/new-registered-service-form.html', {'form': form})
+    return render(request, 'components/settings/new-registered-service-form.html', {'form': form})
 
 def get_registered_service(func):
     """
