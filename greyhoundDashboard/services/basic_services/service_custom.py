@@ -1,7 +1,7 @@
 from services.service_base import ServiceBase
 
 
-class ServiceProxmox(ServiceBase):
+class ServiceCustom(ServiceBase):
 
     """
     Custom!
