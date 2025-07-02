@@ -7,7 +7,7 @@ django.setup()
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from core.models import RegisteredService
-from greyhoundDashboard.core.services.service_registry import ServiceDefinitions
+from core.services.service_registry import ServiceDefinitions
 
 class RegisteredServiceModelTests(TestCase):
 
@@ -18,7 +18,7 @@ class RegisteredServiceModelTests(TestCase):
     def test_save_sets_default_auth_fields_for_enhanced_service(self):
         service = RegisteredService(name="Navidrome", service_type="navidrome")
         service.save()
-        expected_fields = ServiceDefinitions._definitions['navidrome'].enhanced_auth_fields
+        expected_fields = ServiceDefinitions.get_definition('navidrome').enhanced_auth_fields
         self.assertTrue(all(field in service.auth_fields for field in expected_fields))
         self.assertTrue(all(service.auth_fields[field] == '' for field in expected_fields))
 
