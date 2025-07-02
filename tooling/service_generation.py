@@ -297,6 +297,8 @@ if __name__ == "__main__":
         base_branch = "main"
     )
 
+    openai = OpenAI(base_url=os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1"), api_key=os.getenv("OPENAI_API_KEY"))
+
     serviceGenerator = ServiceGenerator(
         openai_client = OpenAI(),
         github_pr_creator = github_pr_creator
