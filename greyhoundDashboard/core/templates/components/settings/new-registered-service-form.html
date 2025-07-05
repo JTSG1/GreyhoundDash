@@ -5,9 +5,12 @@
         hx-target="#form-container"
         hx-swap="innerHTML">
         {% csrf_token %}
+        {% if form.instance.pk %}
+            <input type="hidden" name="id" value="{{ form.instance.pk }}">
+        {% endif %}
         {{ form.as_div }}
         <button type="submit">Submit</button>
-        <button type="button" onclick="document.getElementById('form-container').innerHTML = '';">
+        <button id="edit-form-cancel-button" type="button" onclick="document.getElementById('form-container').innerHTML = '';">
         Cancel
         </button>
     </form>

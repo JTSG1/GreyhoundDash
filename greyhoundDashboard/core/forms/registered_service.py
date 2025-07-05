@@ -30,8 +30,9 @@ class ServiceTypeInputWithDescriptionDiv(forms.Select):
 class NewRegisteredServiceForm(ModelForm):
     class Meta:
         model = RegisteredService
-        fields = ['name', 'service_type', 'url']
+        fields = ['id', 'name', 'service_type', 'url']
         widgets = {
+            'id': forms.HiddenInput(),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'service_type': ServiceTypeInputWithDescriptionDiv(attrs={'class': 'form-control'}),
             'url': URLInputWithHint(attrs={'class': 'form-control'}),

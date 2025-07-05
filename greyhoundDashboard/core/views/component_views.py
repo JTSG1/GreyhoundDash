@@ -22,7 +22,16 @@ def component_service_description(request):
 def new_registered_service_form(request):
     
     if request.method == 'POST':
-        form = NewRegisteredServiceForm(request.POST)
+
+        id = request.POST.get('id', None)
+        registered_service = None
+        if id:
+            try:
+                registered_service = RegisteredService.objects.get(id=id)
+            except RegisteredService.DoesNotExist:
+                return render(request, '404.html', {'error': 'Service not found'}, status=404)
+
+        form = NewRegisteredServiceForm(request.POST, instance=registered_service)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
@@ -56,7 +65,7 @@ def edit_registered_service_form(request, registered_service_id):
     else:
         form = NewRegisteredServiceForm(instance=registered_service)
 
-    return render(request, 'components/settings/edit-registered-service-form.html', {'form': form})
+    return render(request, 'components/settings/new-registered-service-form.html', {'form': form})
 
 def get_registered_service(func):
     """
