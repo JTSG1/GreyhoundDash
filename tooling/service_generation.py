@@ -72,7 +72,7 @@ class ServiceGenerator:
     """
     COMPLETED_SERVICE_PATH = "tooling/awesome_selfhosted_services_completed.json"
     PR_FREQUENCY = 10  # Number of services to process before creating a PR
-    BATCH_SIZE = 10  # Number of services to process in one run
+    BATCH_SIZE = 30  # Number of services to process in one run
     GPT_MODEL = "gpt-4o-mini"  # Model to use for OpenAI API
 
     def __init__(self, prompt_template_path: str = "tooling/service_generation_prompt.txt", openai_client: OpenAI = None, github_pr_creator: GithubPRCreator = None):
@@ -232,6 +232,7 @@ class ServiceGenerator:
                 )
 
                 local_added = []  # Reset the local added list after creating a PR
+                self.completed_services = self.__get_completed_list()
 
             if counter == self.BATCH_SIZE:
                 logging.info(f"Processed {self.BATCH_SIZE} services. Stopping for this run.")

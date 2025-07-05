@@ -64,5 +64,65 @@
     "description": "User management system for websites of organizations and groups. The system has a flexible role model so that it\u00e2\u0080\u0099s possible to reflect the structure and permissions of your organization.",
     "homepage": "https://www.admidio.org/",
     "created": true
+  },
+  "adminer": {
+    "name": "Adminer",
+    "description": "Database management in a single PHP file. Available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
+    "homepage": "https://www.adminer.org/",
+    "created": true
+  },
+  "adventurelog": {
+    "name": "AdventureLog",
+    "description": "Travel tracker and trip planner.",
+    "homepage": "https://adventurelog.app",
+    "created": true
+  },
+  "affineCommunityEdition": {
+    "name": "AFFiNE Community Edition",
+    "description": "Next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, customizable and ready to use (alternative to Notion and Miro).",
+    "homepage": "https://affine.pro/",
+    "created": true
+  },
+  "aimeos": {
+    "name": "Aimeos",
+    "description": "E-commerce framework for building custom online shops, market places and complex B2B applications scaling to billions of items with Laravel.",
+    "homepage": "https://aimeos.org/",
+    "created": true
+  },
+  "airtrail": {
+    "name": "AirTrail",
+    "description": "Personal flight tracking system.",
+    "homepage": "https://airtrail.johan.ohly.dk",
+    "created": true
+  },
+  "akkoma": {
+    "name": "Akkoma",
+    "description": "Federated microblogging server with Mastodon, GNU social, and ActivityPub compatibility.",
+    "homepage": "https://akkoma.social/",
+    "created": true
+  },
+  "aleph": {
+    "name": "Aleph",
+    "description": "Tool for indexing large amounts of both documents (PDF, Word, HTML) and structured (CSV, XLS, SQL) data for easy browsing and search. It is built with investigative reporting as a primary use case.",
+    "homepage": "https://aleph.occrp.org/",
+    "created": true
+  },
+  "alerthub": {
+    "name": "AlertHub",
+    "description": "Get alerts from GitHub releases.",
+    "homepage": "https://github.com/Ardakilic/alerthub",
+    "created": false
+  },
+  "alfIo": {
+    "name": "Alf.io",
+    "description": "Ticket reservation system.",
+    "homepage": "https://alf.io/",
+    "created": true
+  },
+  "alfrescoCommunityEdition": {
+    "name": "Alfresco Community Edition",
+    "description": "The open source Enterprise Content Management software that handles any type of content, allowing users to easily share and collaborate on content.",
+    "homepage": "https://www.alfresco.com/products/community/download",
+    "created": true
   }
 }
