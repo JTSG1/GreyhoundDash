@@ -3,6 +3,9 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/settings.css' %}" crossorigin>
 <div class="settings-container">
+    <div id="edit-service-container" class="edit-service-container">
+        <!-- This container will be populated with the form for editing services -->
+    </div>
     <div class="settings-header">Settings Page</div>
     <div>Services</div>
     <hr />
@@ -38,10 +41,14 @@
                     </td>
                     <td>
                         <div class="buttons-container">
-                            <form method="post" action="http://post_url" class="edit-form">
-                                {% csrf_token %}
-                                <button type="submit" class="edit-button">Edit</button>
-                            </form>
+                            <div 
+                                type="submit" 
+                                class="settings-edit-button"
+                                hx-trigger="click"
+                                hx-target="#edit-service-container"
+                                hx-swap="innerHTML"
+                                hx-get="{% url 'edit_registered_service_form' service.id %}"    
+                                >Edit</div>
                             <form method="post" action="http://post_url" class="delete-form">
                                 {% csrf_token %}
                                 <button type="submit" class="delete-button">Delete</button>
@@ -52,4 +59,19 @@
         </tbody>
     </table>
 </div>
+<script>
+document.body.addEventListener('htmx:afterSwap', function(evt) {
+    if(evt.target.id === 'edit-service-container') {
+        evt.target.classList.add('edit-service-container-visible');
+        // Attach click handler to cancel button(s)
+        const cancelBtn = evt.target.querySelector('#edit-form-cancel-button');
+        if (cancelBtn) {
+            cancelBtn.onclick = function() {
+                evt.target.classList.remove('edit-service-container-visible');
+                evt.target.innerHTML = ""; // Optionally clear the form
+            };
+        }
+    }
+});
+</script>
 {% endblock %}
