@@ -232,6 +232,7 @@ class ServiceGenerator:
                 )
 
                 local_added = []  # Reset the local added list after creating a PR
+                self.completed_services = self.__get_completed_list()
 
             if counter == self.BATCH_SIZE:
                 logging.info(f"Processed {self.BATCH_SIZE} services. Stopping for this run.")
