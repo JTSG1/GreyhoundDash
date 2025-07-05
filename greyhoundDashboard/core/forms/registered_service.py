@@ -39,6 +39,16 @@ class NewRegisteredServiceForm(ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        service_type_value = self.initial.get('service_type') or getattr(self.instance, 'service_type', None)
+        
+        if service_type_value:
+            self.fields['service_type'].widget.attrs['readonly'] = True
+            self.fields['service_type'].widget.attrs['disabled'] = True
+            self.fields['service_type'].widget.attrs['class'] += ' readonly'
+
     def is_valid(self):
         is_valid = super().is_valid()
 
