@@ -35,6 +35,29 @@ def new_registered_service_form(request):
 
     return render(request, 'components/settings/new-registered-service-form.html', {'form': form})
 
+def edit_registered_service_form(request, registered_service_id):
+    """
+    Render the form to edit an existing registered service.
+    """
+    try:
+        registered_service = RegisteredService.objects.get(id=registered_service_id)
+    except RegisteredService.DoesNotExist:
+        return render(request, '404.html', {'error': 'Service not found'}, status=404)
+
+    if request.method == 'POST':
+        form = NewRegisteredServiceForm(request.POST, instance=registered_service)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            header = {
+                "HX-Refresh": "true",
+            }
+            return HttpResponse("<div>Form submitted successfully!</div>", status=200, headers=header)
+    else:
+        form = NewRegisteredServiceForm(instance=registered_service)
+
+    return render(request, 'components/settings/edit-registered-service-form.html', {'form': form})
+
 def get_registered_service(func):
     """
     Decorator to retrieve the registered service from the database.
