@@ -1,0 +1,10 @@
+<div id="delete-dialogue-retrieved-container">
+    <div>
+        Are you sure you wish to delete {{ service.name }}?
+        <form method="post" action="/service-admin/delete/{{ service.id }}" class="delete-form">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Yes</button>
+        </form>
+        <button onclick="document.getElementById('delete-dialogue-retrieved-container').outerHTML = ''">No</button>
+    </div>
+</div>

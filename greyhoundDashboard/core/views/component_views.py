@@ -115,3 +115,9 @@ def component_enhanced_service_data(request, registered_service: RegisteredServi
         'service': service_def,
         'result': result,
     })
+
+@get_registered_service
+def component_confirm_delete_dialogue(request, registered_service: RegisteredService):
+
+
+    return render(request, "components/settings/confirm-delete-dialogue.html", { "service" : registered_service }, status=200)

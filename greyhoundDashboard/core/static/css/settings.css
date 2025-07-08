@@ -105,9 +105,35 @@ select option {
 
 .settings-container:has(.edit-service-container-visible) {
   border: 2px solid purple;
-  max-height: 400px;
+  height: 400px;
 }
 
 .edit-service-container-visible {
     display: block;
+}
+
+#delete-dialogue-retrieved-container{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    background-color: black;
+}
+
+.settings-button{
+    padding:5px;
+    border:1px solid white;
+    text-align: center;
+    font-size: 0.75em;
+    cursor: pointer;
+    border-radius:10px;
+}
+
+.settings-edit-button{
+    background-color: green;
+}
+
+.settings-delete-button{
+    background-color: rgb(129, 0, 0);
 }
