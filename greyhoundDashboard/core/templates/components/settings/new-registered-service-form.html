@@ -1,4 +1,4 @@
-<div class="form-container" id="form-container">
+<div class="form" id="edit-service-inner">
     <form 
         method="post"
         hx-post="{% url 'new_registered_service_form' %}"
@@ -10,7 +10,7 @@
         {% endif %}
         {{ form.as_div }}
         <button type="submit">Submit</button>
-        <button id="edit-form-cancel-button" type="button" onclick="document.getElementById('form-container').innerHTML = '';">
+        <button id="form-cancel-button" type="button" onclick="document.getElementById('edit-service-inner').innerHTML = '';">
         Cancel
         </button>
     </form>

@@ -64,20 +64,24 @@ a{
     font-size: 16px;
 }
 
-.form-container > form > div {
+.form{
+    width:80%;
+}
+
+.form > form > div {
     padding:10px;
 }
 
-.form-container > form > div > label {
+.form > form > div > label {
     display: block;
     margin-bottom: 5px;
     color: #fff;
 }
 
-.form-container > form > div > input[type="text"],
-.form-container > form > div > input[type="url"],
-.form-container > form > div > input[type="password"],
-.form-container > form > div > select {
+.form > form > div > input[type="text"],
+.form > form > div > input[type="url"],
+.form > form > div > input[type="password"],
+.form > form > div > select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -99,7 +103,7 @@ select option {
     left:0;
     right:0;
     height:100%;
-    top:50px;
+    top:0;
     padding:10px;
 }
 
@@ -109,16 +113,9 @@ select option {
 }
 
 .edit-service-container-visible {
-    display: block;
-}
-
-#delete-dialogue-retrieved-container{
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    right:0;
-    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .settings-button{
