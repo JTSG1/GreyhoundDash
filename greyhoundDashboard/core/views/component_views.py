@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from core.models import RegisteredService
 from core.services.service_registry import ServiceDefinitions
 from core.forms.registered_service import NewRegisteredServiceForm
@@ -121,3 +121,11 @@ def component_confirm_delete_dialogue(request, registered_service: RegisteredSer
 
 
     return render(request, "components/settings/confirm-delete-dialogue.html", { "service" : registered_service }, status=200)
+
+
+@get_registered_service
+def component_perform_delete(request, registered_service: RegisteredService):
+
+    registered_service.delete()
+
+    return redirect("settings")
