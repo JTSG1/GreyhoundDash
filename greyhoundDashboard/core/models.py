@@ -46,3 +46,16 @@ class RegisteredService(models.Model):
             self.auth_fields = {field: '' for field in auth_fields_list}
         elif self.auth_fields and not isinstance(self.auth_fields, dict):
             raise ValueError("auth_fields must be a dictionary.")
+
+class RegisteredServiceLog(models.Model):
+
+    TYPES = (
+        ("HEALTHCHECK", 0),
+        ("ENHANCED_CALL", 1)
+    )
+
+    message = models.CharField(max_length=10000, blank=False)
+    type = models.CharField(max_length=50, choices=TYPES)
+    registered_service = models.ForeignKey(RegisteredService, on_delete=models.DO_NOTHING, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
