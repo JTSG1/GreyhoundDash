@@ -1,5 +1,6 @@
 from django.db import models
 from core.services.service_registry import ServiceDefinitions
+from django.utils.translation import gettext_lazy as _
 
 class RegisteredService(models.Model):
 
@@ -49,13 +50,12 @@ class RegisteredService(models.Model):
 
 class RegisteredServiceLog(models.Model):
 
-    TYPES = (
-        ("HEALTHCHECK", "health_check"),
-        ("ENHANCED_CALL", "enhanced_call")
-    )
+    class LogType(models.TextChoices):
+        HEALTHCHECK = "HEALTHCHECK", _("health check")
+        ENHANCED_CALL = "ENHANCED_CALL", _("enhanced call")
 
     message = models.CharField(max_length=10000, blank=False)
-    type = models.CharField(max_length=50, choices=TYPES)
+    type = models.CharField(max_length=50, choices=LogType.choices)
     registered_service = models.ForeignKey(RegisteredService, on_delete=models.DO_NOTHING, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

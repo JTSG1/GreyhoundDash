@@ -31,13 +31,6 @@ class ServiceBase:
         """
         self.state['up'] = self.up_check()
 
-        from core.models import RegisteredServiceLog
-
-        RegisteredServiceLog(
-            message = self.state['up'],
-            type = "RegisteredServiceLog.TYPES[0][0]",
-            registered_service = self.registered_service
-        ).save()
 
         return self
 
@@ -46,11 +39,61 @@ class ServiceBase:
         try:
             request = requests.get(self.registered_service.url, timeout=3)
 
+            from core.models import RegisteredServiceLog
+
+            last_check = None
+
             if request.status_code in [200, 401, 403]:
+
+                try:
+                    last_check = RegisteredServiceLog.objects.filter(
+                        registered_service=self.registered_service,
+                        type=RegisteredServiceLog.LogType.HEALTHCHECK
+                    ).last()
+                except Exception as e:
+                    pass 
+                
+                if last_check and last_check.message == False:
+                    # If the last check was the same, do not log again
+                    RegisteredServiceLog(
+                        message = True,
+                        type = RegisteredServiceLog.LogType.HEALTHCHECK,
+                        registered_service = self.registered_service
+                    ).save()
+                
+                elif not last_check:
+
+                    RegisteredServiceLog(
+                        message = True,
+                        type = RegisteredServiceLog.LogType.HEALTHCHECK,
+                        registered_service = self.registered_service
+                    ).save()
+
                 return True
+                
             else:
+
+                if last_check and last_check.message == True:
+                    # If the last check was the same, do not log again
+                    RegisteredServiceLog(
+                        message = False,
+                        type = RegisteredServiceLog.LogType.HEALTHCHECK,
+                        registered_service = self.registered_service
+                    ).save()
+
+                elif not last_check:
+
+                    RegisteredServiceLog(
+                        message = False,
+                        type = RegisteredServiceLog.LogType.HEALTHCHECK,
+                        registered_service = self.registered_service
+                    ).save()
+
                 return False
+            
+
         except Exception as e:
+
             return False
         
 

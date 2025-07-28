@@ -30,6 +30,7 @@ HOST = environ.get('DJANGO_HOST', 'localhost')
 
 ALLOWED_HOSTS = [HOST]
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 # Application definition
 
