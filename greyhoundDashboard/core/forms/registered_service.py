@@ -42,6 +42,7 @@ class NewRegisteredServiceForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        
     def is_valid(self):
         is_valid = super().is_valid()
 

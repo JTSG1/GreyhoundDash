@@ -50,8 +50,8 @@ class RegisteredService(models.Model):
 class RegisteredServiceLog(models.Model):
 
     TYPES = (
-        ("HEALTHCHECK", 0),
-        ("ENHANCED_CALL", 1)
+        ("HEALTHCHECK", "health_check"),
+        ("ENHANCED_CALL", "enhanced_call")
     )
 
     message = models.CharField(max_length=10000, blank=False)

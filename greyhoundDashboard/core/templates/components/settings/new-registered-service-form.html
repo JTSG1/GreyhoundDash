@@ -2,7 +2,7 @@
     <form 
         method="post"
         hx-post="{% url 'new_registered_service_form' %}"
-        hx-target="#form-container"
+        hx-target="#edit-service-container"
         hx-swap="innerHTML">
         {% csrf_token %}
         {% if form.instance.pk %}

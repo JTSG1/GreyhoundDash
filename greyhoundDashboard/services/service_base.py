@@ -31,6 +31,14 @@ class ServiceBase:
         """
         self.state['up'] = self.up_check()
 
+        from core.models import RegisteredServiceLog
+
+        RegisteredServiceLog(
+            message = self.state['up'],
+            type = "RegisteredServiceLog.TYPES[0][0]",
+            registered_service = self.registered_service
+        ).save()
+
         return self
 
     def up_check(self):
@@ -51,6 +59,7 @@ class ServiceBase:
         # template_path = Path(__file__).parent / "templates" / "components" / "enhanced-services" / f"{self.id}.html"
 
         template_path = files(".".join(self.__module__.split('.')[0:2])).joinpath(
+            self.name,
             f"{self.id}.html"
         )
 

@@ -97,7 +97,7 @@ select option {
 }
 
 .edit-service-container{
-    background-color:rgba(0,0,0,0.95);
+    background-color:rgb(138, 138, 138);
     position: absolute;
     display:none;
     left:0;
