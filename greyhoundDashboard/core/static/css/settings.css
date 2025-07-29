@@ -1,37 +1,14 @@
 .settings-container {
     position: relative;
-    width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    padding-top: 60px;
-    border-radius: 30px;
-    border: 1px solid rgb(80, 80, 80);
+    width: 100%;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border-radius: 15px;
     overflow: hidden;
-    
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.03),
-        rgba(0, 0, 0, 0.05)
-    ), rgba(0, 0, 0, 0.25);
-
-    box-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.2),
-        0 6px 12px rgba(79, 70, 229, 0.3),
-        0 0 0 2px rgba(255, 255, 255, 0.05) inset;
 }
 
 
-.settings-header {
-    width: calc(100%);
-    position:absolute;
-    padding:10px;
-    left:0;
-    top:0;
-    text-align: center;
-    color: #fff;
-    font-size: 24px;
-    margin-bottom: 20px;    
-    background-color: rgba(0, 0, 0, 0.5);
+.settings-header { 
 }
 
 
@@ -65,7 +42,7 @@ a{
 }
 
 .form{
-    width:80%;
+    width:100%;
 }
 
 .form > form > div {
@@ -75,8 +52,11 @@ a{
 .form > form > div > label {
     display: block;
     margin-bottom: 5px;
-    color: #fff;
 }
+
+/* #description-helper{
+    color:rgb(21, 21, 21);
+} */
 
 .form > form > div > input[type="text"],
 .form > form > div > input[type="url"],
@@ -88,34 +68,29 @@ a{
     border-radius: 5px;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
 }
 select option {
   font-size: 1rem;
-  color: #fff;
   background-color: #000;
 }
 
 .edit-service-container{
-    background-color:rgb(138, 138, 138);
+    background-color:rgb(255, 255, 255);
     position: absolute;
     display:none;
     left:0;
     right:0;
     height:100%;
     top:0;
-    padding:10px;
 }
 
 .settings-container:has(.edit-service-container-visible) {
-  border: 2px solid purple;
+  /* border: 2px solid purple; */
   height: 400px;
 }
 
 .edit-service-container-visible {
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .settings-button{
@@ -125,6 +100,7 @@ select option {
     font-size: 0.75em;
     cursor: pointer;
     border-radius:10px;
+    color: white;
 }
 
 .settings-edit-button{

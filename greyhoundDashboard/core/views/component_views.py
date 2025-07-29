@@ -122,7 +122,6 @@ def component_confirm_delete_dialogue(request, registered_service: RegisteredSer
 
     return render(request, "components/settings/confirm-delete-dialogue.html", { "service" : registered_service }, status=200)
 
-
 @get_registered_service
 def component_perform_delete(request, registered_service: RegisteredService):
 

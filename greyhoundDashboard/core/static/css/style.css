@@ -8,21 +8,28 @@ html, body {
 body {
     font-family: "Space Grotesk", sans-serif;
     background: linear-gradient(to bottom right, #0f172a, #1e293b); /* slate-900 → slate-800 */
-    color: #f1f5f9; /* slate-100 */
+    color: #676767; /* slate-100 */
 }
 
 .header{
-    top: 0;
-    left: 0;
     width: 100%;
     height: 60px;
+    padding:5px;
+    padding-left:15px;
+    padding-right:15px;
+    box-sizing: border-box;
     background-color: #1e293b; /* slate-800 */
     color: #f1f5f9; /* slate-100 */
     display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 24px;
     z-index: 1000; /* Ensure it stays on top */
+}
+
+.header-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: left;
 }
 
 .top-title {
@@ -42,27 +49,45 @@ body {
 }
 
 .service-container {
+    padding: 20px;
+    box-sizing: border-box; 
+    width: 100%;
+}
+
+.service-container > h2 {
+    margin:0;
+    margin-bottom: 20px;
+    padding:0;
+}
+
+.service-inner-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin: 20px;
-    justify-content: left;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    column-gap: 20px; /* Only horizontal gap */
+    row-gap: 5px;     /* Smaller vertical gap */
+    width: 100%;
+}
+
+.service-inner-container > div {
+    flex: 0 0 calc(33% - 10px);
+    min-width: 200px;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 .service {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* border: 1px solid #e5e7eb; softer light gray */
+    width: 100%; /* Subtract half of the gap (20px) */
+    color: #333;
     padding: 16px;
     height: 120px;
-    width: 430px;
     box-sizing: border-box;
-    /* border-radius: 12px; */
-    background: #7a8ea1; /* subtle light background */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* soft elevation */
-    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+    background: #7a8ea1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    flex: 0 0 calc(50% - 10px); /* Don't grow, don't shrink, basis of 50% minus gap */
+    margin-bottom: 20px; /* Space between rows */
 }
 
 .service-badge {
@@ -123,7 +148,7 @@ body {
     bottom:7.5px;
     right:10px;
     color: white;
-    background-color: #2563eb; /* blue-600 */
+    background-color: #5b4caf; /* blue-600 */
     font-weight: bold;
     display: flex;
     align-items: center;

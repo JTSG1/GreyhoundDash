@@ -96,26 +96,6 @@ class ServiceBase:
 
             return False
         
-
-    def render(self) -> str:
-
-        # template_path = Path(__file__).parent / "templates" / "components" / "enhanced-services" / f"{self.id}.html"
-
-        template_path = files(".".join(self.__module__.split('.')[0:2])).joinpath(
-            self.name,
-            f"{self.id}.html"
-        )
-
-        if not template_path.exists():
-            raise FileNotFoundError(f"Template not found: {template_path}")
-
-        with open(template_path, encoding="utf-8") as fh:
-            template_string = fh.read()
-
-        template = Template(template_string)
-
-        return mark_safe(template.render(Context({"state": self.state})))
-    
     @classmethod
     def register(cls) -> None:
 
@@ -152,3 +132,21 @@ class EnhancedServiceBase(ServiceBase):
             service_class=cls,
             enhanced_auth_fields=cls.enhanced_auth_fields
         ))
+
+    def render(self) -> str:
+        
+        template_path = files(".".join(self.__module__.split('.')[0:2])).joinpath(
+            self.name,
+            f"{self.id}.html"
+        )
+
+        if not template_path.exists():
+            raise FileNotFoundError(f"Template not found: {template_path}")
+
+        with open(template_path, encoding="utf-8") as fh:
+            template_string = fh.read()
+
+        template = Template(template_string)
+
+        return mark_safe(template.render(Context({"state": self.state})))
+    

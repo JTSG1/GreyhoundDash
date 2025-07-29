@@ -40,8 +40,9 @@
     text-transform: capitalize; Ensure text color is black */
 }
 
-.nav-links > ul > li:hover {
-    background-color: #e0e0e0; /* Change background on hover */
+.active > li {
+    background-color: #5b4caf; !important; /* blue-600 */
+    color: white;
 }
 
 .nav-links > ul  > a{
@@ -60,4 +61,5 @@
     flex-direction: column;
     align-items: flex-start; /* Align children to the left */
     justify-content: flex-start;
+    box-sizing: border-box;
 }

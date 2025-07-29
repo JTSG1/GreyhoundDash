@@ -6,7 +6,7 @@
     <div id="edit-service-container" class="edit-service-container">
         <!-- This container will be populated with the form for editing services -->
     </div>
-    <div class="settings-header">Settings</div>
+    <h2 class="settings-header">Settings</h2>
     <div>Services</div>
     <hr />
     <span class="settings-description">
@@ -27,6 +27,7 @@
                 <th style="width:20%;text-align: left;">Name</th>
                 <th style="width:20%;text-align: left;">Service Type</th>
                 <th style="width:20%;text-align: left;">url</th>
+                <th style="width:20%;text-align: center;">Type</th>
                 <th style="width:10%;text-align: center;"></th>
                 <th style="width:10%;text-align: center;"></th>
             </tr>
@@ -39,6 +40,15 @@
                     <td>
                         <a href="{{ service.url }}" target="_blank">{{ service.url }}</a>
                     </td>
+                    <td style="width:20%;text-align: center;">
+                        <div>
+                            {% if service.definition.is_enhanced %}
+                                <span class="badge badge-success">Enhanced</span>
+                            {% else %}
+                                <span class="badge badge-danger">Basic</span>
+                            {% endif %}
+                        </div>
+                    </td>
                     <td>
                         <div class="buttons-container">
                             <div 
@@ -48,7 +58,9 @@
                                 hx-target="#edit-service-container"
                                 hx-swap="innerHTML"
                                 hx-get="{% url 'edit_registered_service_form' service.id %}"    
-                                >Edit</div>
+                                >
+                                    Edit
+                                </div>
                     </td>
                     <td>
                             <div
@@ -57,7 +69,9 @@
                                 hx-target="#edit-service-container"
                                 hx-swap="innerHTML"
                                 hx-get="{% url 'confirm_delete_service' service.id %}"
-                            >Delete</div>
+                            >
+                                Delete
+                            </div>
                         </div>
                 </tr>
             {% endfor %}

@@ -6,8 +6,8 @@ urlpatterns = [
     # Add your URL patterns here
     # Example:
     path('', views.index, name='index'),
-    path('settings/', views.settings, name='settings'),
-    path('settings/service-admin/delete/<int:registered_service>', views.component_perform_delete, name='perform_delete'),
+    path('services/', views.settings, name='services'),
+    path('services/service-admin/delete/<int:registered_service>', views.component_perform_delete, name='perform_delete'),
     path('component/settings/confirm-delete-dialogue/<int:registered_service>', views.component_confirm_delete_dialogue, name='confirm_delete_service'),
     path('component/service-description/', views.component_service_description, name='service_description'),
     path('component/new-registered-service-form/', views.new_registered_service_form, name='new_registered_service_form'),
