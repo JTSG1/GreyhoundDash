@@ -20,5 +20,6 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),  # Redirect root URL to core app
+    path('user_services/', include('user_services.urls')),  # Redirect root URL to user_services app
     path("__reload__/", include("django_browser_reload.urls")),
 ]
