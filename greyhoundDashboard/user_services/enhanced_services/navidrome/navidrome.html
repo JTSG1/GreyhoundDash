@@ -1,0 +1,12 @@
+<div class="enhanced-output">
+    {% if state.up %}
+        <div style="font-size:0.7em !important;">{{ state.title }}</div>
+        <div style="font-size:0.7em !important;">{{ state.album }}</div>
+        <div style="font-size:0.7em !important;">{{ state.artist }}</div>
+        {% if state.art %}
+            <img src="{{ state.art }}"  style="border-radius:25px;width:80px;position:absolute;left:-115px;top:13.5px;"/>
+        {% endif %}
+    {% else %}
+        <span class="alert-down">SERVICE DOWN</span>
+    {% endif %}
+</div>
