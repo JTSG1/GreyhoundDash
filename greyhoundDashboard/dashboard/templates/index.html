@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="service-container">
+    <h2>Services</h2>
+    <div class="service-inner-container">
+        {% for service in services %}
+            <div id="service-{{ service.id }}-container"
+                hx-get="{% url 'service_pill' service.id %}"
+                hx-trigger="load"
+                hx-target="#service-{{ service.id }}"
+                hx-headers='{"x-include-assets": "false"}'
+                hx-swap="innerHTML">
+                <div id="service-{{ service.id }}">
+
+                </div>
+            </div>
+        {% empty %}
+            <div>No services defined, click on settings (top-right) to add services to GreyhoundDash.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

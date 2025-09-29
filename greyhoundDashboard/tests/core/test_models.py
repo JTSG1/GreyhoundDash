@@ -6,7 +6,7 @@ django.setup()
 
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from core.models import RegisteredService
+from greyhoundDashboard.user_services.models import RegisteredService
 from core.services.service_registry import ServiceDefinitions
 
 class RegisteredServiceModelTests(TestCase):
