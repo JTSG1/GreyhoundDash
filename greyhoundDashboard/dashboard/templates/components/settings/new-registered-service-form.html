@@ -1,0 +1,17 @@
+<div class="form" id="edit-service-inner">
+    <form 
+        method="post"
+        hx-post="{% url 'new_registered_service_form' %}"
+        hx-target="#edit-service-container"
+        hx-swap="innerHTML">
+        {% csrf_token %}
+        {% if form.instance.pk %}
+            <input type="hidden" name="id" value="{{ form.instance.pk }}">
+        {% endif %}
+        {{ form.as_div }}
+        <button type="submit">Submit</button>
+        <button id="form-cancel-button" type="button" onclick="document.getElementById('edit-service-inner').innerHTML = '';">
+        Cancel
+        </button>
+    </form>
+</div>

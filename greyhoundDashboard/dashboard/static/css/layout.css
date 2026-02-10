@@ -1,0 +1,65 @@
+/* ...existing code... */
+.main-container {
+    display: flex;
+    flex-direction: row; /* Side by side layout */
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.left-column {
+    color: #333;
+    width: 300px; /* Sidebar width */
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 100vh; /* Full height sidebar */
+    position: sticky;
+    top: 0;
+    box-sizing: border-box;
+    border-right: 1px solid #ddd; /* Optional border for separation */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.left-column ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    margin-top:1em;
+}
+
+.nav-links > ul > a > li {
+    margin: 10px 0; /* Add some spacing between links */
+    padding: 5px 10px; /* Add some padding */
+    border-bottom: 1px solid #eee; /* Add a bottom border */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+    border: 1px solid #d6d6d6;
+    border-radius: 12.5px; /* Optional: Add border radius */
+    text-transform: capitalize; Ensure text color is black */
+}
+
+.active > li {
+    background-color: #5b4caf; !important; /* blue-600 */
+    color: white;
+}
+
+.nav-links > ul  > a{
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Ensure text color is black */
+}
+
+.right-column {
+    flex: 1; /* Take remaining space */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 100vh;
+    text-align: left; /* Align text left */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align children to the left */
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
